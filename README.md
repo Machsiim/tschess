@@ -1,1 +1,1 @@
-# tschess du nig
+# tschess, nur tschess.
