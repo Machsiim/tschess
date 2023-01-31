@@ -12,4 +12,3 @@ export const useCounterStore = defineStore('counter', () => {
 })
 
 
-// aDOLF hITLERR
