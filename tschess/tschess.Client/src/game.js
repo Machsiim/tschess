@@ -59,6 +59,7 @@ export class Game {
       return false;
     }
   }
+  // check for check
   checkKingInCheck(board) {
     let king;
     for (let i = 0; i < board.length; i++) {
@@ -82,6 +83,54 @@ export class Game {
         }
       }
     }
+  }
+
+  // check for checkmate
+  checkForCheckmate() {
+    let king;
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board.length; j++) {
+        if (
+          board[i][j] instanceof King &&
+          board[i][j].color === this.currentPlayer
+        ) {
+          king = board[i][j];
+          break;
+        }
+      }
+    }
+    let kingRow = king.currentRow;
+    let kingCol = king.currentCol;
+    let kingMoves = [
+      [kingRow - 1, kingCol - 1],
+      [kingRow - 1, kingCol],
+      [kingRow - 1, kingCol + 1],
+      [kingRow, kingCol - 1],
+      [kingRow, kingCol + 1],
+      [kingRow + 1, kingCol - 1],
+      [kingRow + 1, kingCol],
+      [kingRow + 1, kingCol + 1],
+    ];
+    for (let i = 0; i < kingMoves.length; i++) {
+      if (this.isLegalAndValidMove(king, kingMoves[i][0], kingMoves[i][1])) {
+        return false;
+      }
+    }
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board.length; j++) {
+        if (board[i][j] && board[i][j].color === this.currentPlayer) {
+          let piece = board[i][j];
+          for (let k = 0; k < board.length; k++) {
+            for (let l = 0; l < board.length; l++) {
+              if (this.isLegalAndValidMove(piece, k, l)) {
+                return false;
+              }
+            }
+          }
+        }
+      }
+    }
+    return true;
   }
 
   makeMove(piece, x, y) {
