@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Game from "../game.js";
+import Game from "../../game";
 
 export default {
   data() {
