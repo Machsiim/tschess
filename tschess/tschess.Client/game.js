@@ -1,5 +1,5 @@
 // import all pieces from the pieces folder
-import { Piece, King, Queen, Bishop, Knight, Rook, Pawn } from "./pieces";
+import { Piece, King, Queen, Bishop, Knight, Rook, Pawn } from "./src/pieces";
 // initialize the chess board and set all the pieces to their starting positions
 export class Game {
   constructor() {
