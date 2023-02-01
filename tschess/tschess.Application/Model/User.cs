@@ -8,5 +8,6 @@ namespace tschess.Application.Model
 {
     internal class User
     {
+        
     }
 }
