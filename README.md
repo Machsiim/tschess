@@ -49,3 +49,16 @@ Daten im Token zurück (Rolle, Klasse, ...)
 
 ## Starten des Servers
 
+Das Programm verwendet ein SQL Server Docker Image für die Speicherung der Daten. Es wird beim
+Programmstart automatisch geladen.
+
+**Windows**
+```
+startServer.cmd
+```
+
+**macOs, Linux**
+```
+chmod a+x startServer.sh
+./startServer.sh
+```
