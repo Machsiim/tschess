@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<WarningsAsErrors>true</WarningsAsErrors>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="Infrastructure\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Hashids.net" Version="1.6.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Bogus" Version="34.0.2" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.*" />
+		<PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.*" />
+		<PackageReference Include="MailKit" Version="2.*" />
+	</ItemGroup>
 
 </Project>

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tschess.Backend", "tschess.Backend\tschess.Backend.csproj", "{8456DB88-2327-4F7D-9742-E9FA9148F807}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tschess.Backend", "tschess.Backend\Tschess.Backend.csproj", "{8456DB88-2327-4F7D-9742-E9FA9148F807}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tschess.Application", "tschess.Application\tschess.Application.csproj", "{E380BB4F-410F-413E-9602-90EE87236267}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tschess.Application", "tschess.Application\Tschess.Application.csproj", "{E380BB4F-410F-413E-9602-90EE87236267}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
