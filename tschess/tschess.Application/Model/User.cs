@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tschess.Application.Model
+namespace Tschess.Application.Model
 {
     internal class User
     {
+        
     }
 }

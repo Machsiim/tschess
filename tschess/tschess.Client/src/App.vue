@@ -9,6 +9,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <li><RouterLink to="/" class="nav-link">Home</RouterLink></li>
     <li><RouterLink to="/about" class="nav-link">About</RouterLink></li>
     <li><RouterLink to="/" class="nav-link">Chess</RouterLink></li>
+    <li><RouterLink to="/chat" class="nav-link">Chat (SignalR Demo)</RouterLink></li>
     <li><a href="#">About</a></li>
   </ul>
  </body>
