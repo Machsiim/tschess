@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bogus;
+using Microsoft.EntityFrameworkCore;
+using Novell.Directory.Ldap.Utilclass;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +13,9 @@ namespace Tschess.Application.Infrastructure
 {
     public class TschessContext : DbContext
     {
+       
+        public DbSet<AdUser> Users => Set<AdUser>();
+
         public TschessContext(DbContextOptions<TschessContext> opt) : base(opt) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,8 +44,63 @@ namespace Tschess.Application.Infrastructure
                 }
             }
         }
+
+        private void Initialize()
+{
+            var users = new AdUser[]
+            {
+                new AdUser(
+            firstname: "Maxim",
+            lastname : "Romanenko",
+            email: "ichhabeka@spengergasse.at",
+            cn: "ROM22162",
+            dn: "Klasse 3CHIF",
+            groupMemberhips: ["Schüler", "Lehrer"],
+            pupilId: null,
+            teacherId: null
+
+                    )
+            };
+            Users.AddRange(users);
+            SaveChanges();
+        }
         public void Seed()
         {
+            Randomizer.Seed = new Random(1000);
+            var faker = new Faker("de");
+
+            var users = new Faker<AdUser>("de").CustomInstantiator(f =>
+            {
+                var lastname = f.Name.LastName();
+                return new AdUser(
+                    firstname: f.Name.FirstName(),
+                    lastname: lastname,
+                    email: $"{lastname.ToLower()}@spengergasse.at",
+                    cn: lastname.ToLower(),
+                    dn: "Klasse 3CHIF",
+                    groupMemberhips: ["Schüler", "Lehrer"],
+                    pupilId: null,
+                    teacherId: null)
+
+
+                { Guid = f.Random.Guid() };
+            })
+            .Generate(10)
+            .GroupBy(a => a.Email).Select(g => g.First())
+            .ToList();
+            Users.AddRange(users);
+            SaveChanges();
+
+        }
+
+        public void CreateDatabase(bool isDevelopment)
+        {
+            if (isDevelopment) { Database.EnsureDeleted(); }
+            // EnsureCreated only creates the model if the database does not exist or it has no
+            // tables. Returns true if the schema was created.  Returns false if there are
+            // existing tables in the database. This avoids initializing multiple times.
+            if (Database.EnsureCreated()) { Initialize(); }
+            if (isDevelopment) Seed();
         }
 
     }

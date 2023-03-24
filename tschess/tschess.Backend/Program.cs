@@ -71,7 +71,7 @@ if (app.Environment.IsDevelopment())
 {
     using (var scope = app.Services.CreateScope())
     {
-        using (var db = scope.ServiceProvider.GetRequiredService<TschessContext>())
+       using (var db = scope.ServiceProvider.GetRequiredService<TschessContext>())
         {
             db.Database.EnsureDeleted();
             db.Database.EnsureCreated();

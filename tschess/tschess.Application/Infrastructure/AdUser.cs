@@ -35,7 +35,7 @@ namespace Tschess.Application.Infrastructure
             TeacherId = entry.TryGetAttribute("description")?.StringValue;
             GroupMemberhips = entry.TryGetAttribute("memberof")?.StringValueArray ?? Array.Empty<string>();
         }
-
+        public Guid Guid { get; set; }
         public string Firstname { get; }
         public string Lastname { get; }
         public string Email { get; }
