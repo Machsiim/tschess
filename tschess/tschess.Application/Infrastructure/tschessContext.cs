@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Bogus.DataSets;
 using Microsoft.EntityFrameworkCore;
 using Novell.Directory.Ldap.Utilclass;
 using System;
@@ -8,13 +9,14 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using Tschess.Application.Model;
 
 namespace Tschess.Application.Infrastructure
 {
     public class TschessContext : DbContext
     {
        
-        public DbSet<AdUser> Users => Set<AdUser>();
+        public DbSet<User> Users => Set<User>();
 
         public TschessContext(DbContextOptions<TschessContext> opt) : base(opt) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,17 +49,13 @@ namespace Tschess.Application.Infrastructure
 
         private void Initialize()
 {
-            var users = new AdUser[]
+            var users = new User[]
             {
-                new AdUser(
-            firstname: "Maxim",
-            lastname : "Romanenko",
-            email: "ichhabeka@spengergasse.at",
-            cn: "ROM22162",
-            dn: "Klasse 3CHIF",
-            groupMemberhips: ["Schüler", "Lehrer"],
-            pupilId: null,
-            teacherId: null
+                new User(
+
+                    name: "rom22634", 
+                    email: "rom22634@spengergasse.at", 
+                    password: "1111"
 
                     )
             };
@@ -69,18 +67,14 @@ namespace Tschess.Application.Infrastructure
             Randomizer.Seed = new Random(1000);
             var faker = new Faker("de");
 
-            var users = new Faker<AdUser>("de").CustomInstantiator(f =>
+            var users = new Faker<User>("de").CustomInstantiator(f =>
             {
                 var lastname = f.Name.LastName();
-                return new AdUser(
-                    firstname: f.Name.FirstName(),
-                    lastname: lastname,
+                return new User(
+                    name: f.Name.FirstName(),
                     email: $"{lastname.ToLower()}@spengergasse.at",
-                    cn: lastname.ToLower(),
-                    dn: "Klasse 3CHIF",
-                    groupMemberhips: ["Schüler", "Lehrer"],
-                    pupilId: null,
-                    teacherId: null)
+                    password: "1111"
+                    )
 
 
                 { Guid = f.Random.Guid() };

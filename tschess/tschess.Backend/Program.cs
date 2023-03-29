@@ -48,7 +48,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<TschessContext>(opt =>
 {
     opt.UseSqlServer(
-        builder.Configuration.GetConnectionString("SqlServer"),
+        builder.Configuration.GetConnectionString("Default"),
         o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery));
 });
 
@@ -71,11 +71,9 @@ if (app.Environment.IsDevelopment())
 {
     using (var scope = app.Services.CreateScope())
     {
-       using (var db = scope.ServiceProvider.GetRequiredService<TschessContext>())
+        using (var db = scope.ServiceProvider.GetRequiredService<TschessContext>())
         {
-            db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
-            db.Seed();
+            db.CreateDatabase(isDevelopment: app.Environment.IsDevelopment());
         }
     }
     app.UseCors();
