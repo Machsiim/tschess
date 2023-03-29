@@ -26,7 +26,16 @@
             andere Schüler an.
           </p>
         </section>
-        
+        <section class="slider-wrapper">
+          <button class="slide-arrow" id="slide-arrow-prev">&#8249;</button>
+          <button class="slide-arrow" id="slide-arrow-next">&#8250;</button>
+          <ul class="slides-container" id="slides-container">
+            <li class="slide"></li>
+            <li class="slide"></li>
+            <li class="slide"></li>
+            <li class="slide"></li>
+          </ul>
+        </section>
       </body>
       <footer>
         <p>&copy; 2023 Schach Homepage</p>
@@ -35,8 +44,28 @@
   </main>
 </template>
 
+
+<script>
+
+const slidesContainer = document.getElementById("slides-container");
+const slide = document.querySelector(".slide");
+const prevButton = () => {
+    const slider = document.getElementById("slide-arrow-prev");
+    if (slider == null) return;
+    slider.scrollLeft = slider.scrollLeft -1000;
+};
+const nextButton = () => {
+    const slider = document.getElementById("slide-arrow-next");
+    if (slider == null) return;
+    slider.scrollLeft = slider.scrollLeft +1000;
+};
+
+
+
+</script>
+
 <style>
-header{
+header {
   color: white;
 }
 body {
