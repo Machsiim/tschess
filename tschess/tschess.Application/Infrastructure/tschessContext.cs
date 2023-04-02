@@ -48,7 +48,8 @@ namespace Tschess.Application.Infrastructure
         }
 
         private void Initialize()
-{
+        {
+            Database.EnsureCreated();
             var users = new User[]
             {
                 new User(

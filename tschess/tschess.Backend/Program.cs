@@ -44,7 +44,7 @@ builder.Services
 
 builder.Services.AddSignalR();
 builder.Services.AddControllers();
-//builder.Services.AddAutoMapper(typeof(Tschess.Application.Dto.MappingProfile));
+// builder.Services.AddAutoMapper(typeof(Tschess.Application.Dto.MappingProfile));
 builder.Services.AddDbContext<TschessContext>(opt =>
 {
     opt.UseSqlServer(
