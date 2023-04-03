@@ -1,3 +1,4 @@
+using Backend;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Threading.Tasks;
@@ -67,16 +69,41 @@ if (builder.Environment.IsDevelopment())
 }
 
 var app = builder.Build();
+
+// SHOW ENVIRONMENT
+app.Logger.LogInformation($"ASPNETCORE_ENVIRONMENT is {app.Environment.EnvironmentName}");
+app.Logger.LogInformation($"Use Database {builder.Configuration.GetConnectionString("Default")}");
+
+app.UseHttpsRedirection();
 if (app.Environment.IsDevelopment())
 {
-    using (var scope = app.Services.CreateScope())
+    // We will create a fresh sql server container in development mode. For performance reasons,
+    // you can disable deleteAfterShutdown because in development mode the database is deleted
+    // before it is generated.
+    try
     {
-        using (var db = scope.ServiceProvider.GetRequiredService<TschessContext>())
-        {
-            db.CreateDatabase(isDevelopment: app.Environment.IsDevelopment());
-        }
+        // For mariaDb or Postgres see comment in WebApplicationDockerExtensions.cs at method UseMariaDbContainer()
+        await app.UseSqlServerContainer(
+            containerName: "tschess_sqlserver", version: "latest",
+            connectionString: app.Configuration.GetConnectionString("Default"),
+            deleteAfterShutdown: true);
+    }
+    catch (Exception e)
+    {
+        app.Logger.LogError(e.Message);
+        return;
     }
     app.UseCors();
+}
+
+
+// Creating the database.
+using (var scope = app.Services.CreateScope())
+{
+    using (var db = scope.ServiceProvider.GetRequiredService<TschessContext>())
+    {
+        db.CreateDatabase(isDevelopment: app.Environment.IsDevelopment());
+    }
 }
 
 app.UseAuthentication();

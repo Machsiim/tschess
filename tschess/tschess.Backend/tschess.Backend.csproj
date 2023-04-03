@@ -11,6 +11,10 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+		<PackageReference Include="Docker.DotNet" Version="3.*" />
+	</ItemGroup>
+	
+	<ItemGroup>
 		<ProjectReference Include="..\tschess.Application\Tschess.Application.csproj" />
 	</ItemGroup>
 

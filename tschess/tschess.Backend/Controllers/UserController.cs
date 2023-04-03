@@ -98,7 +98,7 @@ public class UserController : ControllerBase
             _db.SaveChanges();
         }
 
-        catch(DbUpdateException e)
+        catch(DbUpdateException)
         {
             return BadRequest();
         }
