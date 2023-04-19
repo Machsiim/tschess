@@ -1,7 +1,6 @@
 <script setup lang="ts">
 </script>
 
-
 <template>
   <main>
     <!DOCTYPE html>
@@ -35,6 +34,29 @@
         </div>
         <div id="app">
           <carousel></carousel>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <img src="./chess1.png" alt="Schach" />
+          </div>
+          <div class="card-body">
+            <h4>Bauern </h4>
+            <p>
+              
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <img src="./Projekt3.jpg" alt="Schach" />
+          </div>
+          <div class="card-body">
+            <h4>Springer</h4>
+            <p>
+              
+            </p>
+          </div>
         </div>
       </body>
       <footer>
@@ -74,18 +96,16 @@ export default {
     next() {
       this.currentIndex = (this.currentIndex + 1) % this.images.length;
     },
-   
   },
-  
 };
 </script>
-
 
 
 <style>
 header {
   color: white;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -146,5 +166,37 @@ footer {
 
 .carousel button:last-child {
   right: 0;
+}
+
+.card {
+  color: darkgreen;
+  margin: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  width: 300px;
+}
+.card:hover {
+  background-color: rgba(255, 242, 242, 0.8);
+}
+.card-header img {
+  border-radius: 10px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  min-height: 250px;
+  color: black;
+}
+.card-body p {
+  font-size: 13px;
+  margin: 0 0 40px;
 }
 </style>
