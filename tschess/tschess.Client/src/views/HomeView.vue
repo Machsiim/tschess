@@ -1,6 +1,7 @@
 <script setup lang="ts">
 </script>
 
+
 <template>
   <main>
     <!DOCTYPE html>
@@ -26,16 +27,15 @@
             andere Schüler an.
           </p>
         </section>
-        <section class="slider-wrapper">
-          <button class="slide-arrow" id="slide-arrow-prev">&#8249;</button>
-          <button class="slide-arrow" id="slide-arrow-next">&#8250;</button>
-          <ul class="slides-container" id="slides-container">
-            <li class="slide"></li>
-            <li class="slide"></li>
-            <li class="slide"></li>
-            <li class="slide"></li>
-          </ul>
-        </section>
+
+        <div class="carousel">
+          <img :src="currentImage" alt="" />
+          <button @click="prev">&#8678;</button>
+          <button @click="next">&#8680;</button>
+        </div>
+        <div id="app">
+          <carousel></carousel>
+        </div>
       </body>
       <footer>
         <p>&copy; 2023 Schach Homepage</p>
@@ -45,24 +45,42 @@
 </template>
 
 
+
+
 <script>
-
-const slidesContainer = document.getElementById("slides-container");
-const slide = document.querySelector(".slide");
-const prevButton = () => {
-    const slider = document.getElementById("slide-arrow-prev");
-    if (slider == null) return;
-    slider.scrollLeft = slider.scrollLeft -1000;
+export default {
+  data() {
+    return {
+      images: [
+        "https://w.forfun.com/fetch/03/03fcf3213fcf72f9632092804abd88a2.jpeg",
+        "https://image.winudf.com/v2/image/Y29tLkdvbGRNZWRhbC5DaGVzczYwX3NjcmVlbl8wXzM4NWo4YTV4/screen-0.jpg?fakeurl=1&type=.jpg",
+        "https://rare-gallery.com/mocahbig/1344546-Black-amp-WhiteChess-4k-Ultra-HD-Wallpaper.jpg",
+      ],
+      currentIndex: 0,
+      intervalId: null,
+      intervalTime: 4000, // set the time in milliseconds for each slide
+    };
+  },
+  computed: {
+    currentImage() {
+      return this.images[this.currentIndex];
+    },
+  },
+  methods: {
+    prev() {
+      this.currentIndex =
+        (this.currentIndex - 1 + this.images.length) % this.images.length;
+    },
+    next() {
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    },
+   
+  },
+  
 };
-const nextButton = () => {
-    const slider = document.getElementById("slide-arrow-next");
-    if (slider == null) return;
-    slider.scrollLeft = slider.scrollLeft +1000;
-};
-
-
-
 </script>
+
+
 
 <style>
 header {
@@ -92,5 +110,41 @@ footer {
   text-align: center;
   font-size: 0.8em;
   clear: both;
+}
+
+.carousel {
+  position: relative;
+  width: 70%;
+  height: 500px;
+  overflow: hidden;
+  margin-left: 15%;
+  transition: transform 1s ease-in-out;
+}
+
+.carousel img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.carousel button:first-child {
+  left: 0;
+}
+
+.carousel button:last-child {
+  right: 0;
 }
 </style>
