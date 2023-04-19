@@ -24,5 +24,5 @@ docker build -t $DOCKER_IMAGE .
 docker run -d -p 5000:80 --network=sqlserver_network --ip=10.0.38.2 --name $DOCKER_IMAGE \
     -e "ASPNETCORE_ENVIRONMENT=Production" \
     -e "CONNECTIONSTRINGS__DEFAULT=$CONN_STR" \
-    -e "SECRET=$SECRET" \
+    -e "JwtSecret=$SECRET" \
     $DOCKER_IMAGE
