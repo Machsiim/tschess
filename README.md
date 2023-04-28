@@ -21,11 +21,11 @@ Lege im Verzeichnis *tschess/tschess.Backend* die Datei *appsettings.Development
 ```javascript
 {
   "ConnectionStrings": {
-    "SqlServer": "Server=127.0.0.1,1433;Initial Catalog=ChessDb;User Id=sa;Password=SqlServer2019"
+    "Default": "Server=127.0.0.1,11433;Initial Catalog=ChessDb;User Id=sa;Password=SqlServer2019"
   },
   "Searchuser": "",
   "Searchpass": "",
-  "JwtSecret": "",
+  "JwtSecret": "fk3To4zKSDHsPII1BOmPCQ==",
   "LocalAdmins": "",
   "Logging": {
     "LogLevel": {
