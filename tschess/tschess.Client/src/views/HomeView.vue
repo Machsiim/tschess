@@ -36,26 +36,16 @@
           <carousel></carousel>
         </div>
 
-        <div class="card">
-          <div class="card-header">
-            <img src="./chess1.png" alt="Schach" />
-          </div>
-          <div class="card-body">
-            <h4>Bauern </h4>
-            <p>
-              
-            </p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <img src="./Projekt3.jpg" alt="Schach" />
-          </div>
-          <div class="card-body">
-            <h4>Springer</h4>
-            <p>
-              
-            </p>
+        <div class="book">
+          <p>
+            Der Springer, oder Pferd genannt, darf zwei unterschiedliche Züge
+            machen: Entwe‐ der zieht er ein Feld geradeaus und zwei Felder nach
+            links oder rechts. Oder er zieht zwei Felder geradeaus und ein Feld
+            nach links oder rechts. Der Springer ist die einzige Figur, die über
+            andere Figuren springen kann.
+          </p>
+          <div class="cover">
+            <img src="./1.jpg" alt="" />
           </div>
         </div>
       </body>
@@ -167,36 +157,75 @@ footer {
 .carousel button:last-child {
   right: 0;
 }
-
-.card {
-  color: darkgreen;
-  margin: 10px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  width: 300px;
-}
-.card:hover {
-  background-color: rgba(255, 242, 242, 0.8);
-}
-.card-header img {
-  border-radius: 10px;
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-.card-body {
+.container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px;
-  min-height: 250px;
-  color: black;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
-.card-body p {
-  font-size: 13px;
-  margin: 0 0 40px;
+.book {
+  position: relative;
+  border-radius: 10px;
+  width: 220px;
+  height: 300px;
+  background-color: whitesmoke;
+  -webkit-box-shadow: 1px 1px 12px #000;
+  box-shadow: 1px 1px 12px #000;
+  -webkit-transform: preserve-3d;
+  -ms-transform: preserve-3d;
+  transform: preserve-3d;
+  -webkit-perspective: 2000px;
+  perspective: 2000px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #000;
+}
+
+.cover {
+  top: 0;
+  position: absolute;
+  background-color: lightgray;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform-origin: 0;
+  -ms-transform-origin: 0;
+  transform-origin: 0;
+  -webkit-box-shadow: 1px 1px 12px #000;
+  box-shadow: 1px 1px 12px #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.book:hover .cover {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform: rotatey(-80deg);
+  -ms-transform: rotatey(-80deg);
+  transform: rotatey(-80deg);
+}
+
+p {
+  font-size: 15px;
+  font-weight: bolder;
+}
+img {
+  height: 300px;
 }
 </style>
