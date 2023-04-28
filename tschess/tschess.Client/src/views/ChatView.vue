@@ -50,7 +50,7 @@ export default {
             try {
                 // Send login request to /api/user/login. The baseUrl of axios is configured
                 // in main.ts.
-                const userdata = (await axios.post('user/login', this.loginModel)).data;
+                const userdata = (await axios.post('https://localhost:5001/api/users/login', this.loginModel)).data;
                 axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
                 this.messages.push(`Received userdata: ${JSON.stringify(userdata)}`);
 
@@ -86,7 +86,7 @@ export default {
     color: white;
     display: flex;
     flex-direction: column;
-    gap:1em;
+    gap: 1em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.4em;
 }
@@ -105,6 +105,7 @@ export default {
 .formRow label {
     flex: 0 0 5em;
 }
+
 .formRow input {
     flex-grow: 0.5;
 }
@@ -113,6 +114,7 @@ export default {
     display: flex;
     gap: 0.5rem;
 }
+
 .messageForm textarea {
     flex-grow: 1;
 }
