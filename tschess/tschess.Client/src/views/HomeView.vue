@@ -9,43 +9,43 @@ import signalRService from '../services/SignalRService.js';
     <!DOCTYPE html>
     <html>
 
-        <section>
-          <h2>Willkommen auf unserer Schach-Homepage</h2>
-          <p>
-            Hier finden Sie Informationen über das Schachspiel, die
-            Schachregeln, Schachstrategien, Schachnotation und vieles mehr.
-          </p>
-          <p>
-            Wir bieten auch eine Plattform zum Spielen von Schach online gegen
-            andere Schüler an.
-          </p>
-        </section>
+    <section>
+      <h2>Willkommen auf unserer Schach-Homepage</h2>
+      <p>
+        Hier finden Sie Informationen über das Schachspiel, die
+        Schachregeln, Schachstrategien, Schachnotation und vieles mehr.
+      </p>
+      <p>
+        Wir bieten auch eine Plattform zum Spielen von Schach online gegen
+        andere Schüler an.
+      </p>
+    </section>
 
-        <div class="carousel">
-          <img :src="currentImage" alt="" />
-          <button @click="prev">&#8678;</button>
-          <button @click="next">&#8680;</button>
-        </div>
-        <div id="app">
-          <carousel></carousel>
-        </div>
+    <div class="carousel">
+      <img :src="currentImage" alt="" />
+      <button @click="prev">&#8678;</button>
+      <button @click="next">&#8680;</button>
+    </div>
+    <div id="app">
+      <carousel></carousel>
+    </div>
 
-        <div class="book">
-          <p>
-            Der Springer, oder Pferd genannt, darf zwei unterschiedliche Züge
-            machen: Entwe‐ der zieht er ein Feld geradeaus und zwei Felder nach
-            links oder rechts. Oder er zieht zwei Felder geradeaus und ein Feld
-            nach links oder rechts. Der Springer ist die einzige Figur, die über
-            andere Figuren springen kann.
-          </p>
-          <div class="cover">
-            <img src="./1.jpg" alt="" />
-          </div>
-        </div>
-      </body>
-      <footer>
-        <p>&copy; 2023 Schach Homepage</p>
-      </footer>
+    <div class="book">
+      <p>
+        Der Springer, oder Pferd genannt, darf zwei unterschiedliche Züge
+        machen: Entwe‐ der zieht er ein Feld geradeaus und zwei Felder nach
+        links oder rechts. Oder er zieht zwei Felder geradeaus und ein Feld
+        nach links oder rechts. Der Springer ist die einzige Figur, die über
+        andere Figuren springen kann.
+      </p>
+      <div class="cover">
+        <img src="./1.jpg" alt="" />
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2023 Schach Homepage</p>
+    </footer>
+
     </html>
   </main>
 </template>
@@ -153,11 +153,13 @@ footer {
 .carousel button:last-child {
   right: 0;
 }
+
 .container {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
+
 .book {
   position: relative;
   border-radius: 10px;
@@ -221,6 +223,7 @@ p {
   font-size: 15px;
   font-weight: bolder;
 }
+
 img {
   height: 300px;
 }

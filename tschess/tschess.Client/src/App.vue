@@ -4,24 +4,37 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
+
     <body>
-  <ul>
-    <li><RouterLink to="/" class="nav-link">Home</RouterLink></li>
-    <li><RouterLink to="/about" class="nav-link">About</RouterLink></li>
-    <li><RouterLink to="/" class="nav-link">Chess</RouterLink></li>
-    <li><RouterLink to="/chat" class="nav-link">Chat (SignalR Demo)</RouterLink></li>
-    <li><a href="#">About</a></li>
-  </ul>
- </body>
+      <ul>
+        <li>
+          <RouterLink to="/" class="nav-link">Home</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/about" class="nav-link">About</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/" class="nav-link">Chess</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/chat" class="nav-link">Chat (SignalR Demo)</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/test" class="nav-link">SignalR Test</RouterLink>
+        </li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </body>
   </header>
-  <RouterView/>
+  <RouterView />
 </template>
 
 <style >
-body{
+body {
 
   background-color: rgb(54, 51, 51);
 }
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -46,9 +59,4 @@ li a {
 li a:hover {
   background-color: #111;
 }
-
-
-  
-
-
 </style>

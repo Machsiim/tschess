@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Tschess.Backend.Hubs
     public class ChessHub : Hub
     {
 
-        public static readonly List<string> ConnectedUsers = new List<string>();
+        public static readonly ConcurrentBag<string> ConnectedUsers = new ConcurrentBag<string>();
 
         /// <summary>
         /// Sends the current username from the token to the client.
@@ -43,14 +44,14 @@ namespace Tschess.Backend.Hubs
         public async Task EnterWaitingroom()
         {
             await Clients.Caller.SendAsync("Warteraum beigetreten");
-            ConnectedUsers.Add(Clients.Caller.ToString());
+            ConnectedUsers.Add(Context.User?.Identity?.Name);
         }
 
         public async Task GetWaitingroom()
         {
             foreach(string user in ConnectedUsers)
             {
-                Clients.Caller.SendAsync("User ist hier" + $"{user}");
+                Clients.Caller.SendAsync($"{user}");
             }
         }
 
