@@ -22,7 +22,7 @@ import signalRService from '../services/SignalRService.js';
         </section>
 
         <div class="IchWillDasNicht">
-            <button v-on:click="joinQ()">Join Queue</button>
+            <button v-on:click="enterWaitingroom()">Join Queue</button>
         </div>
         <footer>
             <p>&copy; 2023 Schach Homepage</p>
@@ -45,18 +45,21 @@ export default {
 
     mounted() {
         console.log("mounted");
-        this.joinQ();
+        this.connect();
     },
 
     computed: {
 
     },
     methods: {
-        async joinQ() {
+        async connect() {
             console.log(this.$store.state.infos.token + "token");
             await signalRService.connectWithToken(this.$store.state.infos.token);
             signalRService.subscribeEvent("ReceiveMessage");
         },
+        async enterWaitingroom() {
+            signalRService.enterWaitingroom();
+        }
     },
 };
 </script>

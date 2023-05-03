@@ -20,7 +20,7 @@ import { RouterLink, RouterView } from 'vue-router'
           <RouterLink to="/chat" class="nav-link">Chat (SignalR Demo)</RouterLink>
         </li>
         <li>
-          <RouterLink to="/test" class="nav-link">SignalR Test</RouterLink>
+          <RouterLink to="/test" class="nav-link">Login</RouterLink>
         </li>
         <li>
           <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>

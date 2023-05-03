@@ -22,8 +22,7 @@ namespace Tschess.Backend.Hubs
         public override async Task OnConnectedAsync()
         {
             var group = Context.User?.Claims.FirstOrDefault(c => c.Type == "Group")?.Value;
-            await EnterWaitingroom();
-            await GetWaitingroom();
+
             await Clients.All.SendAsync("ReceiveMessage",
                 $"{Context.User?.Identity?.Name} in Group {group} joined.");
         }
@@ -44,14 +43,16 @@ namespace Tschess.Backend.Hubs
         public async Task EnterWaitingroom()
         {
             await Clients.Caller.SendAsync("Warteraum beigetreten");
+            await GetWaitingroom();
             ConnectedUsers.Add(Context.User?.Identity?.Name);
+            await Clients.All.SendAsync("WaitForPlayers", Context.User?.Identity?.Name);
         }
 
         public async Task GetWaitingroom()
         {
             foreach(string user in ConnectedUsers)
             {
-                Clients.Caller.SendAsync($"{user}");
+                await Clients.Caller.SendAsync($"{user}");
             }
         }
 
