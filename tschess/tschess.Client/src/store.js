@@ -13,11 +13,11 @@ export default createStore({
     mutations: {
         authenticate(state, userdata) {
             if (!userdata) {
-                state.infos = { username: "", guid: "", isLoggedIn: false };
+                state.infos = { username: "", token: "", isLoggedIn: false };
                 return;
             }
             state.infos.username = userdata.username;
-            state.infos.token = userdata.roken;
+            state.infos.token = userdata.token;
             state.infos.isLoggedIn = true;
         },
     }

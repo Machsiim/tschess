@@ -75,24 +75,25 @@ export default {
             this.currentIndex = (this.currentIndex + 1) % this.images.length;
         },
         async login() {
-            try {
-                const userdata = (await axios.post('https://localhost:5001/api/users/login', this.loginModel)).data;
-                console.log("Test 1")
-                axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
-                console.log("Test 2")
-                console.log("Test 3")
-                console.log("userdata.token = " + userdata.token);
-                this.token = userdata.token;
-                this.isLoggedIn = true;
+            //try {
+            const userdata = (await axios.post('https://localhost:5001/api/users/login', this.loginModel)).data;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
+            console.log("userdata.token = " + userdata.token);
+            this.token = userdata.token;
+            console.log("isLoggedIn=true")
+            this.isLoggedIn = true;
 
-                this.$store.state.infos.token.commit(this.token);
+            console.log(userdata)
+            console.log(userdata.username + " " + userdata.token)
+            this.$store.commit("authenticate", userdata);
+            console.log("this.$store.state.infos.token: " + this.$store.state.infos.token)
 
-            }
+            //
 
-            catch (e) {
-                console.log("login failed");
-                this.isLoggedIn = false;
-            }
+            //catch (e) {
+            //    console.log("login failed");
+            //    this.isLoggedIn = false;
+            //}
 
         },
 

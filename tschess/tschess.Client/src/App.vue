@@ -22,6 +22,9 @@ import { RouterLink, RouterView } from 'vue-router'
         <li>
           <RouterLink to="/test" class="nav-link">SignalR Test</RouterLink>
         </li>
+        <li>
+          <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
+        </li>
         <li><a href="#">About</a></li>
       </ul>
     </body>
