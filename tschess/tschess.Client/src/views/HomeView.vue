@@ -42,7 +42,6 @@ import signalRService from '../services/SignalRService.js';
             <img src="./1.jpg" alt="" />
           </div>
         </div>
-      </body>
       <footer>
         <p>&copy; 2023 Schach Homepage</p>
       </footer>
