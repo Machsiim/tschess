@@ -37,6 +37,20 @@ Lege im Verzeichnis *tschess/tschess.Backend* die Datei *appsettings.Development
   "AllowedHosts": "*"
 }
 ```
+### --OPTIONAL--
+
+Lege außerdem im Verzeichnis "\tschess\tschess\tschess.Client" eine Datei namens "ad_secret.json" an.
+Anschließend schreibe deine eigenen Daten in die Json, damit du dich nicht jedes mal im Text Feld beim Login anmelden musst, 
+sondern deine Daten direkt ausgelesen werden.
+Diese Datei ist standartgemäß nicht erforderlich, ist nur fürs Dev-Environment als Zeitsparer gedacht.
+
+```javascript
+{
+    "username": "placeholder",
+    "password": "placeholder"
+}
+
+### -- OPTIONAL ENDE --
 
 ### Controller für die AD Authentifizierung
 
