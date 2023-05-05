@@ -1,6 +1,6 @@
 <script setup>
-import axios from 'axios';
-import signalRService from '../services/SignalRService.js';
+import axios from "axios";
+import signalRService from "../services/SignalRService.js";
 </script>
 
 
@@ -8,19 +8,18 @@ import signalRService from '../services/SignalRService.js';
   <main>
     <!DOCTYPE html>
     <html>
-
-        <section>
-          <h2>Willkommen auf unserer Schach-Homepage</h2>
-          <p>
-            Hier finden Sie Informationen über das Schachspiel, die
-            Schachregeln, Schachstrategien, Schachnotation und vieles mehr.
-          </p>
-          <p>
-            Wir bieten auch eine Plattform zum Spielen von Schach online gegen
-            andere Schüler an.
-          </p>
-        </section>
-
+      <section>
+        <h2>Willkommen auf unserer Schach-Homepage</h2>
+        <p>
+          Hier finden Sie Informationen über das Schachspiel, die Schachregeln,
+          Schachstrategien, Schachnotation und vieles mehr.
+        </p>
+        <p>
+          Wir bieten auch eine Plattform zum Spielen von Schach online gegen
+          andere Schüler an.
+        </p>
+      </section>
+      <body>
         <div class="carousel">
           <img :src="currentImage" alt="" />
           <button @click="prev">&#8678;</button>
@@ -29,19 +28,18 @@ import signalRService from '../services/SignalRService.js';
         <div id="app">
           <carousel></carousel>
         </div>
-
-        <div class="book">
-          <p>
-            Der Springer, oder Pferd genannt, darf zwei unterschiedliche Züge
-            machen: Entwe‐ der zieht er ein Feld geradeaus und zwei Felder nach
-            links oder rechts. Oder er zieht zwei Felder geradeaus und ein Feld
-            nach links oder rechts. Der Springer ist die einzige Figur, die über
-            andere Figuren springen kann.
-          </p>
-          <div class="cover">
-            <img src="./1.jpg" alt="" />
+        
+        <div class="card">
+          <div class="card2">
+            <p><img src="./1.jpg" alt="" /></p>
           </div>
         </div>
+        <div class="card">
+          <div class="card2">
+            <p><img src="./chess1.png" alt="" /></p>
+          </div>
+        </div>
+        
       </body>
       <footer>
         <p>&copy; 2023 Schach Homepage</p>
@@ -153,36 +151,38 @@ footer {
 .carousel button:last-child {
   right: 0;
 }
-.container {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-}
-.book {
-  position: relative;
-  border-radius: 10px;
-  width: 220px;
-  height: 300px;
-  background-color: whitesmoke;
-  -webkit-box-shadow: 1px 1px 12px #000;
-  box-shadow: 1px 1px 12px #000;
-  -webkit-transform: preserve-3d;
-  -ms-transform: preserve-3d;
-  transform: preserve-3d;
-  -webkit-perspective: 2000px;
-  perspective: 2000px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  color: #000;
+.card {
+  width: 190px;
+  height: 254px;
+  background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+  border-radius: 20px;
+  transition: all 0.3s;
+  margin-left: 20px;
+  display: inline-block;
 }
 
+.card2 {
+  width: 190px;
+  height: 254px;
+  background-color: rgb(71, 70, 70);
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+
+.card2:hover {
+  transform: scale(0.98);
+  border-radius: 20px;
+}
+
+.card:hover {
+  box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.3);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+}
 .cover {
   top: 0;
   position: absolute;
@@ -207,21 +207,5 @@ footer {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-}
-
-.book:hover .cover {
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-transform: rotatey(-80deg);
-  -ms-transform: rotatey(-80deg);
-  transform: rotatey(-80deg);
-}
-
-p {
-  font-size: 15px;
-  font-weight: bolder;
-}
-img {
-  height: 300px;
 }
 </style>
