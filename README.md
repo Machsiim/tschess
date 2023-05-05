@@ -49,6 +49,7 @@ Diese Datei ist standartgemäß nicht erforderlich, ist nur fürs Dev-Environmen
     "username": "placeholder",
     "password": "placeholder"
 }
+```
 
 ### -- OPTIONAL ENDE --
 
