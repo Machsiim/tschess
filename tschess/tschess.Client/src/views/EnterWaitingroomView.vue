@@ -24,6 +24,11 @@ import signalRService from '../services/SignalRService.js';
         <div class="IchWillDasNicht">
             <button v-on:click="enterWaitingroom()">Join Queue</button>
         </div>
+
+        <div>
+            <button v-on:click="printUsers()">Print Users</button>
+        </div>
+
         <footer>
             <p>&copy; 2023 Schach Homepage</p>
         </footer>
@@ -39,7 +44,7 @@ import signalRService from '../services/SignalRService.js';
 export default {
     data() {
         return {
-            connectedUsers: {},
+            connectedUsers: [],
         };
     },
 
@@ -55,11 +60,28 @@ export default {
         async connect() {
             console.log(this.$store.state.infos.token + "token");
             await signalRService.connectWithToken(this.$store.state.infos.token);
-            signalRService.subscribeEvent("ReceiveMessage");
+            signalRService.subscribeEvent("WaitForPlayers", this.addUser());
         },
         async enterWaitingroom() {
             signalRService.enterWaitingroom();
-        }
+        },
+
+        addUser(name) {
+            console.log("Bitte was " + this.connectedUsers)
+            if (this.connectedUsers === '') {
+                console.log(name)
+                this.connectedUsers = name;
+            }
+            else {
+                console.log("Push User")
+                this.connectedUsers.push("User: " + name);
+            }
+        },
+
+        printUsers() {
+            console.log(this.connectedUsers);
+        },
+
     },
 };
 </script>
