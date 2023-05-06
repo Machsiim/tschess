@@ -50,10 +50,14 @@ namespace Tschess.Backend.Hubs
 
         public async Task GetWaitingroom()
         {
+            string users = "";
             foreach(string user in ConnectedUsers)
             {
-                await Clients.Caller.SendAsync($"{user}");
+                users = users + " , " + user;
             }
+
+            await Clients.Caller.SendAsync($"{users}");
+
         }
 
 

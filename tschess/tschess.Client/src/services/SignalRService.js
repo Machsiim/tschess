@@ -36,7 +36,6 @@ class SignalRService {
     async enterWaitingroom() {
         if (!this.connected) { throw new Error("Invalid state. Not connected."); }
         await this.connection.invoke("EnterWaitingroom");
-        await this.connection.subscribeEvent("WaitForPlayers");
     }
 
 

@@ -60,6 +60,7 @@ export default {
         async connect() {
             console.log(this.$store.state.infos.token + "token");
             await signalRService.connectWithToken(this.$store.state.infos.token);
+            signalRService.enterWaitingroom();
             signalRService.subscribeEvent("WaitForPlayers", this.addUser());
         },
         async enterWaitingroom() {
@@ -67,6 +68,7 @@ export default {
         },
 
         addUser(name) {
+            console.log("Vom Server erhalten: " + name)
             console.log("Bitte was " + this.connectedUsers)
             if (this.connectedUsers === '') {
                 console.log(name)
