@@ -9,7 +9,7 @@ import signalRService from "../services/SignalRService.js";
     <!DOCTYPE html>
     <html>
       <section>
-        <h2>Willkommen auf unserer Schach-Homepage</h2>
+        <h1>Willkommen auf unserer Schach-Homepage</h1>
         <p>
           Hier finden Sie Informationen über das Schachspiel, die Schachregeln,
           Schachstrategien, Schachnotation und vieles mehr.
@@ -25,22 +25,16 @@ import signalRService from "../services/SignalRService.js";
           <button @click="prev">&#8678;</button>
           <button @click="next">&#8680;</button>
         </div>
-        <div id="app">
-          <carousel></carousel>
-        </div>
+       
         
         <div class="card">
           <div class="card2">
-            <p><img src="./1.jpg" alt="" /></p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card2">
-            <p><img src="./chess1.png" alt="" /></p>
+            <img src="./1.jpg" alt="" />
           </div>
         </div>
         
       </body>
+
       <footer>
         <p>&copy; 2023 Schach Homepage</p>
       </footer>
@@ -84,14 +78,14 @@ export default {
 
 
 <style>
-header {
-  color: white;
+main{
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 section {
@@ -181,31 +175,6 @@ footer {
 .card img {
   width: 100%;
   height: 100%;
-  margin-top: 20px;
 }
-.cover {
-  top: 0;
-  position: absolute;
-  background-color: lightgray;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-transform-origin: 0;
-  -ms-transform-origin: 0;
-  transform-origin: 0;
-  -webkit-box-shadow: 1px 1px 12px #000;
-  box-shadow: 1px 1px 12px #000;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
+
 </style>
