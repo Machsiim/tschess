@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Tschess.Backend.Hubs
     public class ChessHub : Hub
     {
 
-        public static readonly ConcurrentBag<string> ConnectedUsers = new ConcurrentBag<string>();
+        public static ConcurrentBag<string> ConnectedUsers = new ConcurrentBag<string>();
 
         /// <summary>
         /// Sends the current username from the token to the client.
@@ -42,24 +43,17 @@ namespace Tschess.Backend.Hubs
 
         public async Task EnterWaitingroom()
         {
-            await Clients.Caller.SendAsync("Warteraum beigetreten");
-            await GetWaitingroom();
-            ConnectedUsers.Add(Context.User?.Identity?.Name);
-            await Clients.All.SendAsync("WaitForPlayers", Context.User?.Identity?.Name);
+            if (Context.User?.Identity?.Name is null) { return; }
+            ConnectedUsers.Add(Context.User.Identity.Name);
+            await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
         }
 
-        public async Task GetWaitingroom()
+        public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            string users = "";
-            foreach(string user in ConnectedUsers)
-            {
-                users = users + " , " + user;
-            }
-
-            await Clients.Caller.SendAsync($"{users}");
-
+            if (Context.User?.Identity?.Name is null) { return; }
+            ConnectedUsers = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { Context.User?.Identity?.Name }));
+            await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
         }
-
 
     }
 }

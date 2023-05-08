@@ -38,7 +38,6 @@ class SignalRService {
         await this.connection.invoke("EnterWaitingroom");
     }
 
-
     async sendMessage(message) {
         if (!this.connected) { throw new Error("Invalid state. Not connected."); }
         // SendMessage is corresponding to the C# Method in ChessHub.

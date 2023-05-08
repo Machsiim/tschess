@@ -118,7 +118,7 @@ export default {
         },
 
         async fetchDevUser() {
-            fetch('../../ad_secret.json')
+            await fetch('../../ad_secret.json')
                 .then(response => response.json())
                 .then(data => this.devUser = data);
             console.log("Dev User: " + this.devUser)
