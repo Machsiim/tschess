@@ -9,25 +9,28 @@ import signalRService from '../services/SignalRService.js';
         <!DOCTYPE html>
         <html>
 
-        <section>
-            <h2>Willkommen auf unserer Schach-Homepage</h2>
-            <p>
-                Hier finden Sie Informationen über das Schachspiel, die
-                Schachregeln, Schachstrategien, Schachnotation und vieles mehr.
-            </p>
-            <p>
-                Wir bieten auch eine Plattform zum Spielen von Schach online gegen
-                andere Schüler an.
-            </p>
+
+        <section class="test">
+            <div class="IchWillDasNicht" v-if="!joinedQueue">
+                <button v-on:click="this.connect();">Join Queue</button>
+            </div>
+
+            <div>
+                <button v-on:click="printUsers()">Print Users</button>
+            </div>
+
+            <br>
+
+            <div v-if="joinedQueue">
+                <ul>
+                    <div v-for="user in connectedUsers" v-bind:key="user"> 
+                        <ul>{{ user }} <button v-on:click="this.challenge(user)">Challenge</button></ul>
+                    </div>
+                </ul>
+            </div>
+
         </section>
 
-        <div class="IchWillDasNicht">
-            <button v-on:click="enterWaitingroom()">Join Queue</button>
-        </div>
-
-        <div>
-            <button v-on:click="printUsers()">Print Users</button>
-        </div>
 
         <footer>
             <p>&copy; 2023 Schach Homepage</p>
@@ -45,12 +48,13 @@ export default {
     data() {
         return {
             connectedUsers: [],
+            joinedQueue: false,
         };
     },
 
     mounted() {
         console.log("mounted");
-        this.connect();
+
     },
 
     computed: {
@@ -62,6 +66,7 @@ export default {
             await signalRService.connectWithToken(this.$store.state.infos.token);
             signalRService.subscribeEvent("SetWaitingroomState", this.addUser);
             signalRService.enterWaitingroom();
+            this.joinedQueue = true;
         },
         async enterWaitingroom() {
             signalRService.enterWaitingroom();
@@ -76,6 +81,10 @@ export default {
             console.log(this.connectedUsers);
         },
 
+        challenge(username) {
+
+        }
+
     },
 };
 </script>
@@ -84,6 +93,10 @@ export default {
 <style>
 header {
     color: white;
+}
+
+.test {
+    text-align: center;
 }
 
 body {

@@ -6,7 +6,8 @@ export default createStore({
             infos: {
                 username: "",
                 token: "",
-                isLoggedIn: false
+                isLoggedIn: false,
+                isInQueue: false
             },
         }
     },
@@ -20,5 +21,8 @@ export default createStore({
             state.infos.token = userdata.token;
             state.infos.isLoggedIn = true;
         },
+        joinQueue(state) {
+            state.infos.isInQueue = true;
+        }
     }
 });

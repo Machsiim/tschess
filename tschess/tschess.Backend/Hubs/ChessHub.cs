@@ -24,13 +24,13 @@ namespace Tschess.Backend.Hubs
         {
             var group = Context.User?.Claims.FirstOrDefault(c => c.Type == "Group")?.Value;
 
-            await Clients.All.SendAsync("ReceiveMessage",
-                $"{Context.User?.Identity?.Name} in Group {group} joined.");
+            //await Clients.All.SendAsync("ReceiveMessage",
+            //    $"{Context.User?.Identity?.Name} in Group {group} joined.");
         }
         /// <summary>
         /// Invoked by
         ///     connection.invoke("SendMessage", message);
-        /// in Javascript SignalR client.
+        /// in Javascript SignalR client.h
         /// </summary>
         public async Task SendMessage(string message)
         {

@@ -17,9 +17,6 @@ import { RouterLink, RouterView } from 'vue-router'
           <RouterLink to="/" class="nav-link">Chess</RouterLink>
         </li>
         <li>
-          <RouterLink to="/chat" class="nav-link">Chat (SignalR Demo)</RouterLink>
-        </li>
-        <li>
           <RouterLink to="/test" class="nav-link">Login</RouterLink>
         </li>
         <li>
