@@ -25,14 +25,21 @@ import signalRService from "../services/SignalRService.js";
           <button @click="prev">&#8678;</button>
           <button @click="next">&#8680;</button>
         </div>
-       
-        
+
         <div class="card">
-          <div class="card2">
-            <img src="./1.jpg" alt="" />
+          <div class="card2 hover-div">
+            <img src="./1.jpg" alt="Your image" class="blur-image" />
+            <div class="card-text">
+              <h2>Springer</h2>
+              <p>
+                Der Springer, oder Pferd genannt, darf zwei unterschiedliche
+                Züge machen: Entwe‐ der zieht er ein Feld geradeaus und zwei
+                Felder nach links oder rechts. Oder er zieht zwei Felder
+                geradeaus und ein Feld nach links oder rechts.
+              </p>
+            </div>
           </div>
         </div>
-        
       </body>
 
       <footer>
@@ -78,14 +85,14 @@ export default {
 
 
 <style>
-main{
-  font-family: 'Poppins', sans-serif;
+main {
+  font-family: "Poppins", sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 section {
@@ -146,18 +153,18 @@ footer {
   right: 0;
 }
 .card {
-  width: 190px;
-  height: 254px;
+  width: 250px;
+  height: 300px;
   background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
   border-radius: 20px;
   transition: all 0.3s;
   margin-left: 20px;
-  display: inline-block;
+  margin-top: 20px;
 }
 
 .card2 {
-  width: 190px;
-  height: 254px;
+  width: 250px;
+  height: 300px;
   background-color: rgb(71, 70, 70);
   border-radius: 20px;
   transition: all 0.2s;
@@ -168,13 +175,40 @@ footer {
   border-radius: 20px;
 }
 
-.card:hover {
-  box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.3);
-}
-
-.card img {
+.card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 }
 
+.blur-image {
+  filter: blur(0);
+  transition: filter 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card:hover .blur-image {
+  filter: blur(5px);
+}
+.card:hover .card-text {
+  display: inline-block;
+}
+
+.card-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  padding: 20px;
+  width: 210px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  color: #fff;
+  display: none;
+  transition: opacity 0.5s ease-in-out;
+}
 </style>
