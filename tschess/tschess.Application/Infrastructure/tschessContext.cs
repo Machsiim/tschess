@@ -17,6 +17,7 @@ namespace Tschess.Application.Infrastructure
     {
        
         public DbSet<User> Users => Set<User>();
+        public DbSet<Game> Games => Set<Game>();
 
         public TschessContext(DbContextOptions<TschessContext> opt) : base(opt) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

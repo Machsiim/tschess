@@ -19,6 +19,7 @@ import signalRService from '../services/SignalRService.js';
 
             <div v-if="joinedQueue">
                 <ul>
+                    Connected Users:
                     <div v-for="user in connectedUsers" v-bind:key="user">
                         <ul>{{ user }} <button v-on:click="this.challenge(user)">Challenge</button></ul>
                     </div>
@@ -28,7 +29,10 @@ import signalRService from '../services/SignalRService.js';
                 </div>
                 <div v-if="this.activeChallenges != undefined">
                     <div v-for="challenge in activeChallenges" v-bind:key="challenge">
-                        <ul>{{ challenge }} <button v-on:click="this.processChallenge("accepted", challenge)">Accept</button> <button>Decline</button></ul>
+                        <ul>{{ challenge }}
+                            <button v-on:click="this.processChallenge('accepted', challenge)">Accept</button>
+                            <button v-on:click="this.processChallenge('declined', challenge)">Decline</button>
+                        </ul>
                     </div>
                 </div>
 
@@ -61,6 +65,10 @@ export default {
     mounted() {
         console.log("mounted");
 
+    },
+
+    unmounted() {
+        signalRService.leaveWaitingroom();
     },
 
     computed: {
@@ -104,11 +112,18 @@ export default {
             if (state == "accepted") {
                 console.log("accepted")
                 // Push Client to GameView here
-                this.activeChallenges.remove(challenge);
+                const index = this.activeChallenges.indexOf(challenge);
+                if (index > -1) {
+                    this.activeChallenges.splice(index, 1);
+                }
+                signalRService.startGame(challenge)
             }
             else {
                 console.log("declined")
-                this.activeChallenges.remove(challenge);
+                const index = this.activeChallenges.indexOf(challenge);
+                if (index > -1) {
+                    this.activeChallenges.splice(index, 1);
+                }
             }
         }
 

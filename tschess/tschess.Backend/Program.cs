@@ -113,6 +113,7 @@ app.MapControllers();
 app.MapHub<ChessHub>("/chessHub", options =>
 {
     options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
+
 });
 
 app.UseStaticFiles();

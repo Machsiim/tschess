@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using Org.BouncyCastle.Crypto;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using Tschess.Application.Infrastructure;
+using Tschess.Application.Model;
 
 namespace Tschess.Backend.Hubs
 {
@@ -15,12 +18,21 @@ namespace Tschess.Backend.Hubs
     {
 
         public static ConcurrentBag<string> ConnectedUsers = new ConcurrentBag<string>();
+        public static ConcurrentBag<string[]> LiveGames = new ConcurrentBag<string[]>();
+        public TschessContext _db;
+
+
 
         /// <summary>
         /// Sends the current username from the token to the client.
         /// </summary>
         /// <returns></returns>
         /// 
+
+        public ChessHub(TschessContext db) {
+            _db = db;
+        }
+
         public override async Task OnConnectedAsync()
         {
             var group = Context.User?.Claims.FirstOrDefault(c => c.Type == "Group")?.Value;
@@ -45,6 +57,7 @@ namespace Tschess.Backend.Hubs
         public async Task EnterWaitingroom()
         {
             if (Context.User?.Identity?.Name is null) { return; }
+            //if(ConnectedUsers.Contains(Context.User.Identity.Name)) {  return; }
             ConnectedUsers.Add(Context.User.Identity.Name);
             await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
         }
@@ -60,6 +73,27 @@ namespace Tschess.Backend.Hubs
         {
             string [] users = { Context.User?.Identity?.Name, challenged};
             await Clients.All.SendAsync("GetChallenges", users);
+        }
+
+        public async Task LeaveWaitingroom()
+        {
+            if (Context.User?.Identity?.Name is null) { return; }
+            ConnectedUsers = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { Context.User?.Identity?.Name }));
+            await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
+        }
+
+        public async Task StartGame(string player2)
+        {
+            string player1 = Context.User.Identity.Name;
+            Game game = new Game(player1: player1, player2: player2);
+            _db.Games.Add(game);
+            try { _db.SaveChanges(); }
+            catch { return; }
+            
+            string[] liveGame = { player1, player2, game.GameState};
+            LiveGames.Add(liveGame);
+
+            await Clients.All.SendAsync("SetGameState", new string[] {player1, player2, game.Guid.ToString()});
         }
 
     }

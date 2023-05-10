@@ -49,6 +49,17 @@ class SignalRService {
         await this.connection.invoke("SendMessage", message);
     }
 
+    async leaveWaitingroom() {
+        if (!this.connected) { throw new Error("Invalid state. Not connected."); }
+        await this.connection.invoke("LeaveWaitingroom");
+    }
+
+    async startGame(player2) {
+        if (!this.connected) { throw new Error("Invalid state. Not connected."); }
+        await this.connection.invoke("StartGame", player2);
+    }
+
+
 }
 
 // Export a singleton (only 1 instance in the spa to make state management easier)
