@@ -15,18 +15,23 @@ import signalRService from '../services/SignalRService.js';
                 <button v-on:click="this.connect();">Join Queue</button>
             </div>
 
-            <div>
-                <button v-on:click="printUsers()">Print Users</button>
-            </div>
-
             <br>
 
             <div v-if="joinedQueue">
                 <ul>
-                    <div v-for="user in connectedUsers" v-bind:key="user"> 
+                    <div v-for="user in connectedUsers" v-bind:key="user">
                         <ul>{{ user }} <button v-on:click="this.challenge(user)">Challenge</button></ul>
                     </div>
                 </ul>
+                <div>
+                    Incoming Challenges:
+                </div>
+                <div v-if="this.activeChallenges != undefined">
+                    <div v-for="challenge in activeChallenges" v-bind:key="challenge">
+                        <ul>{{ challenge }} <button v-on:click="this.processChallenge("accepted", challenge)">Accept</button> <button>Decline</button></ul>
+                    </div>
+                </div>
+
             </div>
 
         </section>
@@ -49,6 +54,7 @@ export default {
         return {
             connectedUsers: [],
             joinedQueue: false,
+            activeChallenges: [],
         };
     },
 
@@ -65,6 +71,7 @@ export default {
             console.log(this.$store.state.infos.token + "token");
             await signalRService.connectWithToken(this.$store.state.infos.token);
             signalRService.subscribeEvent("SetWaitingroomState", this.addUser);
+            signalRService.subscribeEvent("GetChallenges", this.printChallenges)
             signalRService.enterWaitingroom();
             this.joinedQueue = true;
         },
@@ -82,7 +89,27 @@ export default {
         },
 
         challenge(username) {
+            signalRService.challenge(username);
+        },
 
+        printChallenges(challenges) {
+            console.log(challenges[0] + " challenges " + challenges[1])
+            if (challenges[1] == this.$store.state.infos.username) {
+                console.log("pushed")
+                this.activeChallenges.push(challenges[0]);
+            }
+        },
+
+        processChallenge(state, challenge) {
+            if (state == "accepted") {
+                console.log("accepted")
+                // Push Client to GameView here
+                this.activeChallenges.remove(challenge);
+            }
+            else {
+                console.log("declined")
+                this.activeChallenges.remove(challenge);
+            }
         }
 
     },

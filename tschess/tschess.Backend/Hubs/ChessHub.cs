@@ -5,6 +5,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace Tschess.Backend.Hubs
@@ -53,6 +54,12 @@ namespace Tschess.Backend.Hubs
             if (Context.User?.Identity?.Name is null) { return; }
             ConnectedUsers = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { Context.User?.Identity?.Name }));
             await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
+        }
+
+        public async Task ChallengeUser(string challenged)
+        {
+            string [] users = { Context.User?.Identity?.Name, challenged};
+            await Clients.All.SendAsync("GetChallenges", users);
         }
 
     }
