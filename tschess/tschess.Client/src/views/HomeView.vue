@@ -26,16 +26,95 @@ import signalRService from "../services/SignalRService.js";
           <button @click="next">&#8680;</button>
         </div>
 
+        <div class="flexbox">
+          <div class="fb">
+            <div class="card">
+              <div class="card2 hover-div">
+                <img src="./1.jpg" alt="Your image" class="blur-image" />
+                <div class="card-text">
+                  <h2>Springer</h2>
+                  <p>
+                    Der Springer, oder Pferd genannt, darf zwei unterschiedliche
+                    Züge machen: Entwe‐ der zieht er ein Feld geradeaus und zwei
+                    Felder nach links oder rechts. Oder er zieht zwei Felder
+                    geradeaus und ein Feld nach links oder rechts.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fb">
+            <div class="card">
+              <div class="card2 hover-div">
+                <img src="./chess1.png" alt="Your image" class="blur-image" />
+                <div class="card-text">
+                  <h2>Bauer</h2>
+                  <p>
+                    Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                    kann. Ebenso ist der Bauer die einzige Figur, die anders
+                    schlägt als zieht: er schlägt immer diagonal, zieht aber
+                    gerade.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fb">
+            <div class="card">
+              <div class="card2 hover-div">
+                <img src="./chess2.png" alt="Your image" class="blur-image" />
+                <div class="card-text">
+                  <h2>Dame</h2>
+                  <p>
+                    Die Dame darf auf jedes freie Feld derselben Linie, Reihe
+                    oder Diagonale ziehen, ohne jedoch über andere Figuren zu
+                    springen und vereint somit die Wirkung eines Turms und eines
+                    Läufers in sich. Damit ist die Dame die beweglichste aller
+                    Figuren.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="card">
           <div class="card2 hover-div">
-            <img src="./1.jpg" alt="Your image" class="blur-image" />
+            <img src="./chess1.png" alt="Your image" class="blur-image" />
             <div class="card-text">
-              <h2>Springer</h2>
+              <h2>Bauer</h2>
               <p>
-                Der Springer, oder Pferd genannt, darf zwei unterschiedliche
-                Züge machen: Entwe‐ der zieht er ein Feld geradeaus und zwei
-                Felder nach links oder rechts. Oder er zieht zwei Felder
-                geradeaus und ein Feld nach links oder rechts.
+                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                kann. Ebenso ist der Bauer die einzige Figur, die anders schlägt
+                als zieht: er schlägt immer diagonal, zieht aber gerade.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card2 hover-div">
+            <img src="./chess1.png" alt="Your image" class="blur-image" />
+            <div class="card-text">
+              <h2>Bauer</h2>
+              <p>
+                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                kann. Ebenso ist der Bauer die einzige Figur, die anders schlägt
+                als zieht: er schlägt immer diagonal, zieht aber gerade.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card2 hover-div">
+            <img src="./chess1.png" alt="Your image" class="blur-image" />
+            <div class="card-text">
+              <h2>Bauer</h2>
+              <p>
+                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                kann. Ebenso ist der Bauer die einzige Figur, die anders schlägt
+                als zieht: er schlägt immer diagonal, zieht aber gerade.
               </p>
             </div>
           </div>
@@ -210,5 +289,19 @@ footer {
   color: #fff;
   display: none;
   transition: opacity 0.5s ease-in-out;
+}
+
+@media (min-width: 480px) {
+   .flexbox { max-width: 430px; display: flex; flex-wrap: wrap }
+   .fb { width: 49%; }
+}
+@media (min-width: 640px) {
+   .flexbox { max-width: 580px;  }
+   .fb { width: 32%; }
+}
+
+.fb{
+
+  margin-left: 20px;
 }
 </style>
