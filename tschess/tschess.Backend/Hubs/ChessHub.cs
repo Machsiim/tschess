@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using Org.BouncyCastle.Asn1.Cmp;
 using Org.BouncyCastle.Crypto;
 using System;
 using System.Collections.Concurrent;
@@ -100,19 +101,31 @@ namespace Tschess.Backend.Hubs
             string[] liveGame = { challenged, challenger, game.GameState};
             LiveGames.Add(liveGame);
 
-            //await Clients.User(challenger).SendAsync("GameStarted", game.Guid.ToString());
-            //await Clients.User(challenged).SendAsync("GameStarted", game.Guid.ToString());
-
-            await Clients.Group(users.ToString()).SendAsync("GameStarted", game.Guid.ToString());
-
-            //await Clients.User(challenged).SendAsync("SetGameState", new string[] {challenger, challenged, game.Guid.ToString()});
-            //await Clients.User(challenger).SendAsync("SetGameState", new string[] { challenger, challenged, game.Guid.ToString() });
-
-            await Clients.Group(users.ToString()).SendAsync("SetGameState", new string[] { challenger, challenged, game.Guid.ToString() });
+            await Clients.Group(users).SendAsync("GameStarted", game.Guid.ToString());
 
             ConnectedUsers = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { challenged, challenger }));
             await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
 
         }
+
+        public async Task SetGameState(Guid GameGuid, string fen)
+        {
+            var game = _db.Games.FirstOrDefault(g => g.Guid == GameGuid);
+            if (game is null) return;
+            game.GameState = fen;
+            try { _db.SaveChanges(); } catch {  return; }
+
+            string users = game.Player1 + game.Player2;
+            await Clients.Group(users).SendAsync("SetGameState", fen);
+        }
+
+        public async Task GetGameState(Guid GameGuid)
+        {
+            var game = _db.Games.FirstOrDefault(g => g.Guid == GameGuid);
+            if (game is null) return;
+            string users = game.Player1 + game.Player2;
+            await Clients.Caller.SendAsync("SetGameState", game.GameState);
+        }
+
     }
 }

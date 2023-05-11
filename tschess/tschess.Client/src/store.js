@@ -7,7 +7,8 @@ export default createStore({
                 username: "",
                 token: "",
                 isLoggedIn: false,
-                isInQueue: false
+                isInQueue: false,
+                currentGameGuid: "",
             },
         }
     },
@@ -23,6 +24,10 @@ export default createStore({
         },
         joinQueue(state) {
             state.infos.isInQueue = true;
+        },
+        joinGame(state, gameGuid) {
+            state.infos.isInQueue = false;
+            state.infos.currentGameGuid = gameGuid;
         }
     }
 });

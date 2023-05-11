@@ -59,6 +59,11 @@ class SignalRService {
         await this.connection.invoke("StartGame", player2);
     }
 
+    async getGameState(gameGuid) {
+        if (!this.connected) { throw new Error("Invalid state. Not connected."); }
+        return await this.connection.invoke("GetGameState", gameGuid);
+    }
+
 
 }
 

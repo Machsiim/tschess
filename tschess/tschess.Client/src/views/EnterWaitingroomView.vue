@@ -128,9 +128,15 @@ export default {
             }
         },
 
-        pushRouter(gameId) {
+        async pushRouter(gameId) {
+            this.$store.commit("joinGame", gameId);
             console.log("startGame")
-            this.$router.push("/game/" + gameId);
+            this.leaveWaitingroom();
+            await this.$router.push("/game/" + gameId);
+        },
+
+        leaveWaitingroom() {
+            signalRService.leaveWaitingroom();
         }
 
     },
