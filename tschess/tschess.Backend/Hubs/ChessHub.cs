@@ -71,8 +71,9 @@ namespace Tschess.Backend.Hubs
 
         public async Task ChallengeUser(string challenged)
         {
-            string users = Context.User?.Identity?.Name + challenged;
-            Groups.AddToGroupAsync(Context.ConnectionId, users);
+            string [] users = { Context.User?.Identity?.Name, challenged };
+            string usersString = Context.User?.Identity?.Name + challenged;
+            Groups.AddToGroupAsync(Context.ConnectionId, usersString);
             await Clients.All.SendAsync("GetChallenges", users);
             Console.WriteLine(users.ToString());
         }

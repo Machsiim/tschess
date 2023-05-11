@@ -113,7 +113,6 @@ export default {
         processChallenge(state, challenge) {
             if (state == "accepted") {
                 console.log("accepted")
-                // Push Client to GameView here
                 const index = this.activeChallenges.indexOf(challenge);
                 if (index > -1) {
                     this.activeChallenges.splice(index, 1);
