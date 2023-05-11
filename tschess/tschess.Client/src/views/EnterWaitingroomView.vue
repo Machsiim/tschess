@@ -65,6 +65,7 @@ export default {
     mounted() {
         console.log("mounted");
 
+
     },
 
     unmounted() {
@@ -79,8 +80,9 @@ export default {
             console.log(this.$store.state.infos.token + "token");
             await signalRService.connectWithToken(this.$store.state.infos.token);
             signalRService.subscribeEvent("SetWaitingroomState", this.addUser);
-            signalRService.subscribeEvent("GetChallenges", this.printChallenges)
+            signalRService.subscribeEvent("GetChallenges", this.printChallenges);
             signalRService.enterWaitingroom();
+            signalRService.subscribeEvent("GameStarted", this.startGame);
             this.joinedQueue = true;
         },
         async enterWaitingroom() {
@@ -125,6 +127,11 @@ export default {
                     this.activeChallenges.splice(index, 1);
                 }
             }
+        },
+
+        startGame(gameId) {
+            console.log("startGame")
+            this.$router.push("/game/" + gameId);
         }
 
     },

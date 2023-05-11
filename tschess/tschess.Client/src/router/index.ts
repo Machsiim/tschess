@@ -40,6 +40,11 @@ const router = createRouter({
       name: 'enter',
       component: () => import('../views/EnterWaitingroomView.vue')
     },
+    {
+      path: '/game/:id',
+      name: 'game',
+      component : () => import('../views/GameView.vue')
+    },
   ]
 })
 

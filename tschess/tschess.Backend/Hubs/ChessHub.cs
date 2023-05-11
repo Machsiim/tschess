@@ -82,19 +82,26 @@ namespace Tschess.Backend.Hubs
             await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
         }
 
-        public async Task StartGame(string player2)
+        public async Task StartGame(string challenger)
         {
-            string player1 = Context.User.Identity.Name;
-            Game game = new Game(player1: player1, player2: player2);
+            string challenged = Context.User.Identity.Name;
+            Game game = new Game(player1: challenger, player2: challenged);
             _db.Games.Add(game);
             try { _db.SaveChanges(); }
             catch { return; }
             
-            string[] liveGame = { player1, player2, game.GameState};
+            string[] liveGame = { challenged, challenger, game.GameState};
             LiveGames.Add(liveGame);
 
-            await Clients.All.SendAsync("SetGameState", new string[] {player1, player2, game.Guid.ToString()});
-        }
+            await Clients.User(challenger).SendAsync("GameStarted", game.Guid.ToString());
+            await Clients.User(challenged).SendAsync("GameStarted", game.Guid.ToString());
 
+            await Clients.User(challenged).SendAsync("SetGameState", new string[] {challenger, challenged, game.Guid.ToString()});
+            await Clients.User(challenger).SendAsync("SetGameState", new string[] { challenger, challenged, game.Guid.ToString() });
+
+            ConnectedUsers = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { challenged, challenger }));
+            await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
+
+        }
     }
 }
