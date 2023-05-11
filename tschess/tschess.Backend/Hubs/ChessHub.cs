@@ -71,8 +71,10 @@ namespace Tschess.Backend.Hubs
 
         public async Task ChallengeUser(string challenged)
         {
-            string [] users = { Context.User?.Identity?.Name, challenged};
+            string users = Context.User?.Identity?.Name + challenged;
+            Groups.AddToGroupAsync(Context.ConnectionId, users);
             await Clients.All.SendAsync("GetChallenges", users);
+            Console.WriteLine(users.ToString());
         }
 
         public async Task LeaveWaitingroom()
@@ -85,6 +87,10 @@ namespace Tschess.Backend.Hubs
         public async Task StartGame(string challenger)
         {
             string challenged = Context.User.Identity.Name;
+            
+            string users = Context.User?.Identity?.Name + challenged;
+            Groups.AddToGroupAsync(Context.ConnectionId, users);
+            
             Game game = new Game(player1: challenger, player2: challenged);
             _db.Games.Add(game);
             try { _db.SaveChanges(); }
@@ -93,11 +99,15 @@ namespace Tschess.Backend.Hubs
             string[] liveGame = { challenged, challenger, game.GameState};
             LiveGames.Add(liveGame);
 
-            await Clients.User(challenger).SendAsync("GameStarted", game.Guid.ToString());
-            await Clients.User(challenged).SendAsync("GameStarted", game.Guid.ToString());
+            //await Clients.User(challenger).SendAsync("GameStarted", game.Guid.ToString());
+            //await Clients.User(challenged).SendAsync("GameStarted", game.Guid.ToString());
 
-            await Clients.User(challenged).SendAsync("SetGameState", new string[] {challenger, challenged, game.Guid.ToString()});
-            await Clients.User(challenger).SendAsync("SetGameState", new string[] { challenger, challenged, game.Guid.ToString() });
+            await Clients.Group(users.ToString()).SendAsync("GameStarted", game.Guid.ToString());
+
+            //await Clients.User(challenged).SendAsync("SetGameState", new string[] {challenger, challenged, game.Guid.ToString()});
+            //await Clients.User(challenger).SendAsync("SetGameState", new string[] { challenger, challenged, game.Guid.ToString() });
+
+            await Clients.Group(users.ToString()).SendAsync("SetGameState", new string[] { challenger, challenged, game.Guid.ToString() });
 
             ConnectedUsers = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { challenged, challenger }));
             await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);

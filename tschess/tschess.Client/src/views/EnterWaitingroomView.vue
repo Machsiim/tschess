@@ -82,7 +82,7 @@ export default {
             signalRService.subscribeEvent("SetWaitingroomState", this.addUser);
             signalRService.subscribeEvent("GetChallenges", this.printChallenges);
             signalRService.enterWaitingroom();
-            signalRService.subscribeEvent("GameStarted", this.startGame);
+            signalRService.subscribeEvent("GameStarted", this.pushRouter);
             this.joinedQueue = true;
         },
         async enterWaitingroom() {
@@ -129,7 +129,7 @@ export default {
             }
         },
 
-        startGame(gameId) {
+        pushRouter(gameId) {
             console.log("startGame")
             this.$router.push("/game/" + gameId);
         }
