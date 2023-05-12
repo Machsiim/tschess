@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using MimeKit.Encodings;
 using Org.BouncyCastle.Asn1.Cmp;
 using Org.BouncyCastle.Crypto;
 using System;
@@ -116,7 +117,9 @@ namespace Tschess.Backend.Hubs
             try { _db.SaveChanges(); } catch {  return; }
 
             string users = game.Player1 + game.Player2;
-            await Clients.Group(users).SendAsync("SetGameState", fen);
+            if(Context.User?.Identity?.Name == game.Player1) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2 });
+            else if (Context.User?.Identity?.Name == game.Player2) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2 });
+
         }
 
         public async Task GetGameState(Guid GameGuid)
@@ -124,7 +127,7 @@ namespace Tschess.Backend.Hubs
             var game = _db.Games.FirstOrDefault(g => g.Guid == GameGuid);
             if (game is null) return;
             string users = game.Player1 + game.Player2;
-            await Clients.Caller.SendAsync("SetGameState", game.GameState);
+            await Clients.Caller.SendAsync("SetGameState", new string[] { game.GameState, game.Player2 });
         }
 
     }
