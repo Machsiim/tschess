@@ -1,6 +1,6 @@
 <script setup>
-import axios from 'axios';
-import signalRService from '../services/SignalRService.js';
+import axios from "axios";
+import signalRService from "../services/SignalRService.js";
 </script>
 
 
@@ -8,44 +8,94 @@ import signalRService from '../services/SignalRService.js';
   <main>
     <!DOCTYPE html>
     <html>
+      <section>
+        <h1>Willkommen auf unserer Schach-Homepage</h1>
+        <p>
+          Hier finden Sie Informationen über das Schachspiel, die Schachregeln,
+          Schachstrategien, Schachnotation und vieles mehr.
+        </p>
+        <p>
+          Wir bieten auch eine Plattform zum Spielen von Schach online gegen
+          andere Schüler an.
+        </p>
+      </section>
+      <body>
+        <div class="carousel">
+          <img :src="currentImage" alt="" />
+          <button @click="prev">&#8678;</button>
+          <button @click="next">&#8680;</button>
+        </div>
 
-    <section>
-      <h2>Willkommen auf unserer Schach-Homepage</h2>
-      <p>
-        Hier finden Sie Informationen über das Schachspiel, die
-        Schachregeln, Schachstrategien, Schachnotation und vieles mehr.
-      </p>
-      <p>
-        Wir bieten auch eine Plattform zum Spielen von Schach online gegen
-        andere Schüler an.
-      </p>
-    </section>
+        <div class="flexbox">
+          <div class="fb">
+            <div class="card">
+              <div class="card2 hover-div">
+                <img src="./1.jpg" alt="Your image" class="blur-image" />
+                <div class="card-text">
+                  <h2>Springer</h2>
+                  <p>
+                    Der Springer, oder Pferd genannt, darf zwei unterschiedliche
+                    Züge machen: Entwe‐ der zieht er ein Feld geradeaus und zwei
+                    Felder nach links oder rechts. Oder er zieht zwei Felder
+                    geradeaus und ein Feld nach links oder rechts.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <div class="carousel">
-      <img :src="currentImage" alt="" />
-      <button @click="prev">&#8678;</button>
-      <button @click="next">&#8680;</button>
-    </div>
-    <div id="app">
-      <carousel></carousel>
-    </div>
+          <div class="fb">
+            <div class="card">
+              <div class="card2 hover-div">
+                <img src="./chess1.png" alt="Your image" class="blur-image" />
+                <div class="card-text">
+                  <h2>Bauer</h2>
+                  <p>
+                    Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                    kann. Ebenso ist der Bauer die einzige Figur, die anders
+                    schlägt als zieht: er schlägt immer diagonal, zieht aber
+                    gerade.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <div class="book">
-      <p>
-        Der Springer, oder Pferd genannt, darf zwei unterschiedliche Züge
-        machen: Entwe‐ der zieht er ein Feld geradeaus und zwei Felder nach
-        links oder rechts. Oder er zieht zwei Felder geradeaus und ein Feld
-        nach links oder rechts. Der Springer ist die einzige Figur, die über
-        andere Figuren springen kann.
-      </p>
-      <div class="cover">
-        <img src="./1.jpg" alt="" />
-      </div>
-    </div>
-    <footer>
-      <p>&copy; 2023 Schach Homepage</p>
-    </footer>
+          <div class="fb">
+            <div class="card">
+              <div class="card2 hover-div">
+                <img src="./chess2.png" alt="Your image" class="blur-image" />
+                <div class="card-text">
+                  <h2>Dame</h2>
+                  <p>
+                    Die Dame darf auf jedes freie Feld derselben Linie, Reihe
+                    oder Diagonale ziehen, ohne jedoch über andere Figuren zu
+                    springen und vereint somit die Wirkung eines Turms und eines
+                    Läufers in sich. Damit ist die Dame die beweglichste aller
+                    Figuren.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <div class="book">
+          <p>
+            Der Springer, oder Pferd genannt, darf zwei unterschiedliche Züge
+            machen: Entwe‐ der zieht er ein Feld geradeaus und zwei Felder nach
+            links oder rechts. Oder er zieht zwei Felder geradeaus und ein Feld
+            nach links oder rechts. Der Springer ist die einzige Figur, die über
+            andere Figuren springen kann.
+          </p>
+          <div class="cover">
+            <img src="./1.jpg" alt="" />
+          </div>
+        </div>
+      </body>
+      <footer>
+        <p>&copy; 2023 Schach Homepage</p>
+      </footer>
     </html>
   </main>
 </template>
@@ -86,14 +136,14 @@ export default {
 
 
 <style>
-header {
-  color: white;
+main {
+  font-family: "Poppins", sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 section {
@@ -153,77 +203,71 @@ footer {
 .carousel button:last-child {
   right: 0;
 }
-
 .container {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
-
 .book {
   position: relative;
   border-radius: 10px;
   width: 220px;
   height: 300px;
-  background-color: whitesmoke;
-  -webkit-box-shadow: 1px 1px 12px #000;
-  box-shadow: 1px 1px 12px #000;
-  -webkit-transform: preserve-3d;
-  -ms-transform: preserve-3d;
-  transform: preserve-3d;
-  -webkit-perspective: 2000px;
-  perspective: 2000px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  color: #000;
+  background-color: rgb(71, 70, 70);
+  border-radius: 20px;
+  transition: all 0.2s;
 }
 
-.cover {
-  top: 0;
+.card2:hover {
+  transform: scale(0.98);
+  border-radius: 20px;
+}
+
+.card-image {
   position: absolute;
-  background-color: lightgray;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-transform-origin: 0;
-  -ms-transform-origin: 0;
-  transform-origin: 0;
-  -webkit-box-shadow: 1px 1px 12px #000;
-  box-shadow: 1px 1px 12px #000;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
 }
 
-.book:hover .cover {
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-transform: rotatey(-80deg);
-  -ms-transform: rotatey(-80deg);
-  transform: rotatey(-80deg);
+.blur-image {
+  filter: blur(0);
+  transition: filter 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-p {
-  font-size: 15px;
-  font-weight: bolder;
+.card:hover .blur-image {
+  filter: blur(5px);
+}
+.card:hover .card-text {
+  display: inline-block;
 }
 
+.card-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  padding: 20px;
+  width: 210px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  color: #fff;
+  display: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+@media (min-width: 480px) {
+   .flexbox { max-width: 430px; display: flex; flex-wrap: wrap }
+   .fb { width: 49%; }
+}
+@media (min-width: 640px) {
+   .flexbox { max-width: 580px;  }
+   .fb { width: 32%; }
+}
 img {
   height: 300px;
 }
