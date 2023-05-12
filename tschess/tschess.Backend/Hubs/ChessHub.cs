@@ -90,7 +90,7 @@ namespace Tschess.Backend.Hubs
         {
             string challenged = Context.User.Identity.Name;
             
-            string users = Context.User?.Identity?.Name + challenged;
+            string users = challenger + challenged;
             Groups.AddToGroupAsync(Context.ConnectionId, users);
             
             Game game = new Game(player1: challenger, player2: challenged);

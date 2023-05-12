@@ -99,6 +99,7 @@ export default {
         },
 
         challenge(username) {
+            signalRService.subscribeEvent("GameStarted", this.pushRouter);
             signalRService.challenge(username);
         },
 
