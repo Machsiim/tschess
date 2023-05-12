@@ -45,6 +45,9 @@ export default {
             connected: false,
         };
     },
+
+
+
     methods: {
         async login() {
             try {
@@ -52,7 +55,6 @@ export default {
                 // in main.ts.
                 const userdata = (await axios.post('https://localhost:5001/api/users/login', this.loginModel)).data;
                 axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
-                this.messages.push(`Received userdata: ${JSON.stringify(userdata)}`);
 
                 // Try to connect to SignalR with our SignalR Service in
                 // ../services/SignalRService.js
@@ -62,6 +64,9 @@ export default {
                 // in the c# hub class. We can register a method in our vue.js template
                 // to process this message.
                 signalRService.subscribeEvent('ReceiveMessage', this.onReceiveMessage);
+                console.log("Vor Commit")
+                this.$store.commit("authenticate", userdata);
+                console.log("this.$store.state.infos.token: " + this.$store.state.infos.token);
             } catch (e) {
                 this.messages.push(`Login failed: ${JSON.stringify(e)}`);
             }
@@ -76,6 +81,7 @@ export default {
     unmounted() {
         signalRService.unsubscribeEvent('ReceiveMessage', this.onReceiveMessage);
     },
+
 };
 </script>
 

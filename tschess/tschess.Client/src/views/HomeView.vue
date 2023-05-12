@@ -123,10 +123,21 @@ import signalRService from "../services/SignalRService.js";
                 </p>
               </div>
             </div>
+
+        <div class="book">
+          <p>
+            Der Springer, oder Pferd genannt, darf zwei unterschiedliche Züge
+            machen: Entwe‐ der zieht er ein Feld geradeaus und zwei Felder nach
+            links oder rechts. Oder er zieht zwei Felder geradeaus und ein Feld
+            nach links oder rechts. Der Springer ist die einzige Figur, die über
+            andere Figuren springen kann.
+          </p>
+          <div class="cover">
+            <img src="./1.jpg" alt="" />
+
           </div>
         </div>
       </body>
-
       <footer>
         <p>&copy; 2023 Schach Homepage</p>
       </footer>
@@ -238,6 +249,7 @@ footer {
 .carousel button:last-child {
   right: 0;
 }
+
 .card {
   width: 300px;
   height: 300px;
@@ -250,6 +262,11 @@ footer {
 
 .card2 {
   width: 300px;
+}
+.book {
+  position: relative;
+  border-radius: 10px;
+  width: 220px;
   height: 300px;
   background-color: rgb(71, 70, 70);
   border-radius: 20px;
@@ -303,6 +320,4 @@ footer {
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
-
-
 </style>

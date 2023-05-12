@@ -4,6 +4,7 @@
 **/.vscode
 **/node_modules
 **/azure_secrets.txt
+**/ad_secret.json
 *.db*
 appsettings.Development.json
 package-lock.json
