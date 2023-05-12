@@ -80,47 +80,19 @@ import signalRService from "../services/SignalRService.js";
           </div>
         </div>
 
-        <div class="card">
-          <div class="card2 hover-div">
-            <img src="./chess1.png" alt="Your image" class="blur-image" />
-            <div class="card-text">
-              <h2>Bauer</h2>
-              <p>
-                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
-                kann. Ebenso ist der Bauer die einzige Figur, die anders schlägt
-                als zieht: er schlägt immer diagonal, zieht aber gerade.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card2 hover-div">
-            <img src="./chess1.png" alt="Your image" class="blur-image" />
-            <div class="card-text">
-              <h2>Bauer</h2>
-              <p>
-                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
-                kann. Ebenso ist der Bauer die einzige Figur, die anders schlägt
-                als zieht: er schlägt immer diagonal, zieht aber gerade.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card2 hover-div">
-            <img src="./chess1.png" alt="Your image" class="blur-image" />
-            <div class="card-text">
-              <h2>Bauer</h2>
-              <p>
-                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
-                kann. Ebenso ist der Bauer die einzige Figur, die anders schlägt
-                als zieht: er schlägt immer diagonal, zieht aber gerade.
-              </p>
-            </div>
+        <div class="book">
+          <p>
+            Der Springer, oder Pferd genannt, darf zwei unterschiedliche Züge
+            machen: Entwe‐ der zieht er ein Feld geradeaus und zwei Felder nach
+            links oder rechts. Oder er zieht zwei Felder geradeaus und ein Feld
+            nach links oder rechts. Der Springer ist die einzige Figur, die über
+            andere Figuren springen kann.
+          </p>
+          <div class="cover">
+            <img src="./1.jpg" alt="" />
           </div>
         </div>
       </body>
-
       <footer>
         <p>&copy; 2023 Schach Homepage</p>
       </footer>
@@ -231,18 +203,15 @@ footer {
 .carousel button:last-child {
   right: 0;
 }
-.card {
-  width: 250px;
-  height: 300px;
-  background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
-  border-radius: 20px;
-  transition: all 0.3s;
-  margin-left: 20px;
-  margin-top: 20px;
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
-
-.card2 {
-  width: 250px;
+.book {
+  position: relative;
+  border-radius: 10px;
+  width: 220px;
   height: 300px;
   background-color: rgb(71, 70, 70);
   border-radius: 20px;
@@ -299,9 +268,7 @@ footer {
    .flexbox { max-width: 580px;  }
    .fb { width: 32%; }
 }
-
-.fb{
-
-  margin-left: 20px;
+img {
+  height: 300px;
 }
 </style>

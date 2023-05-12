@@ -32,11 +32,38 @@ class SignalRService {
         else
             this.connection.off(type, callback);
     }
+
+    async enterWaitingroom() {
+        if (!this.connected) { throw new Error("Invalid state. Not connected."); }
+        await this.connection.invoke("EnterWaitingroom");
+    }
+
+    async challenge(playername) {
+        if (!this.connected) { throw new Error("Invalid state. Not connected."); }
+        await this.connection.invoke("ChallengeUser", playername);
+    }
+
     async sendMessage(message) {
         if (!this.connected) { throw new Error("Invalid state. Not connected."); }
         // SendMessage is corresponding to the C# Method in ChessHub.
         await this.connection.invoke("SendMessage", message);
     }
+
+    async leaveWaitingroom() {
+        if (!this.connected) { throw new Error("Invalid state. Not connected."); }
+        await this.connection.invoke("LeaveWaitingroom");
+    }
+
+    async startGame(player2) {
+        if (!this.connected) { throw new Error("Invalid state. Not connected."); }
+        await this.connection.invoke("StartGame", player2);
+    }
+
+    async getGameState(gameGuid) {
+        if (!this.connected) { throw new Error("Invalid state. Not connected."); }
+        return await this.connection.invoke("GetGameState", gameGuid);
+    }
+
 
 }
 
