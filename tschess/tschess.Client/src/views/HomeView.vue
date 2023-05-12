@@ -26,11 +26,11 @@ import signalRService from "../services/SignalRService.js";
           <button @click="next">&#8680;</button>
         </div>
 
-        <div class="flexbox">
+        <div class="container">
           <div class="fb">
             <div class="card">
               <div class="card2 hover-div">
-                <img src="./1.jpg" alt="Your image" class="blur-image" />
+                <img id="springers" src="./1.jpg" alt="Your image" class="blur-image" />
                 <div class="card-text">
                   <h2>Springer</h2>
                   <p>
@@ -80,42 +80,48 @@ import signalRService from "../services/SignalRService.js";
           </div>
         </div>
 
-        <div class="card">
-          <div class="card2 hover-div">
-            <img src="./chess1.png" alt="Your image" class="blur-image" />
-            <div class="card-text">
-              <h2>Bauer</h2>
-              <p>
-                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
-                kann. Ebenso ist der Bauer die einzige Figur, die anders schlägt
-                als zieht: er schlägt immer diagonal, zieht aber gerade.
-              </p>
+        <div class="container">
+          <div class="card">
+            <div class="card2 hover-div">
+              <img id="turm" src="./turm.jpg" alt="Your image" class="blur-image" />
+              <div class="card-text">
+                <h2>Bauer</h2>
+                <p>
+                  Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                  kann. Ebenso ist der Bauer die einzige Figur, die anders
+                  schlägt als zieht: er schlägt immer diagonal, zieht aber
+                  gerade.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card2 hover-div">
-            <img src="./chess1.png" alt="Your image" class="blur-image" />
-            <div class="card-text">
-              <h2>Bauer</h2>
-              <p>
-                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
-                kann. Ebenso ist der Bauer die einzige Figur, die anders schlägt
-                als zieht: er schlägt immer diagonal, zieht aber gerade.
-              </p>
+          <div class="card">
+            <div class="card2 hover-div">
+              <img src="./chess1.png" alt="Your image" class="blur-image" />
+              <div class="card-text">
+                <h2>Bauer</h2>
+                <p>
+                  Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                  kann. Ebenso ist der Bauer die einzige Figur, die anders
+                  schlägt als zieht: er schlägt immer diagonal, zieht aber
+                  gerade.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card2 hover-div">
-            <img src="./chess1.png" alt="Your image" class="blur-image" />
-            <div class="card-text">
-              <h2>Bauer</h2>
-              <p>
-                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
-                kann. Ebenso ist der Bauer die einzige Figur, die anders schlägt
-                als zieht: er schlägt immer diagonal, zieht aber gerade.
-              </p>
+
+          <div class="card">
+            <div class="card2 hover-div">
+              <img src="./chess1.png" alt="Your image" class="blur-image" />
+              <div class="card-text">
+                <h2>Bauer</h2>
+                <p>
+                  Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                  kann. Ebenso ist der Bauer die einzige Figur, die anders
+                  schlägt als zieht: er schlägt immer diagonal, zieht aber
+                  gerade.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -179,6 +185,7 @@ section {
   width: 70%;
   padding: 20px;
   color: white;
+  text-align: center;
 }
 
 aside {
@@ -232,7 +239,7 @@ footer {
   right: 0;
 }
 .card {
-  width: 250px;
+  width: 300px;
   height: 300px;
   background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
   border-radius: 20px;
@@ -242,7 +249,7 @@ footer {
 }
 
 .card2 {
-  width: 250px;
+  width: 300px;
   height: 300px;
   background-color: rgb(71, 70, 70);
   border-radius: 20px;
@@ -283,7 +290,7 @@ footer {
   left: 0;
   top: 0;
   padding: 20px;
-  width: 210px;
+  width: 25 0px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 20px;
   color: #fff;
@@ -291,17 +298,11 @@ footer {
   transition: opacity 0.5s ease-in-out;
 }
 
-@media (min-width: 480px) {
-   .flexbox { max-width: 430px; display: flex; flex-wrap: wrap }
-   .fb { width: 49%; }
-}
-@media (min-width: 640px) {
-   .flexbox { max-width: 580px;  }
-   .fb { width: 32%; }
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
-.fb{
 
-  margin-left: 20px;
-}
 </style>
