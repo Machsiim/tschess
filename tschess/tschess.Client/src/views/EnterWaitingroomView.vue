@@ -63,8 +63,6 @@ export default {
     },
 
     mounted() {
-        console.log("mounted");
-
 
     },
 
@@ -77,7 +75,6 @@ export default {
     },
     methods: {
         async connect() {
-            console.log(this.$store.state.infos.token + "token");
             await signalRService.connectWithToken(this.$store.state.infos.token);
             signalRService.subscribeEvent("SetWaitingroomState", this.addUser);
             signalRService.subscribeEvent("GetChallenges", this.printChallenges);
@@ -91,11 +88,6 @@ export default {
 
         addUser(names) {
             this.connectedUsers = names;
-            console.log(this.connectedUsers);
-        },
-
-        printUsers() {
-            console.log(this.connectedUsers);
         },
 
         challenge(username) {
@@ -104,16 +96,13 @@ export default {
         },
 
         printChallenges(challenges) {
-            console.log(challenges[0] + " challenges " + challenges[1])
             if (challenges[1] == this.$store.state.infos.username) {
-                console.log("pushed")
                 this.activeChallenges.push(challenges[0]);
             }
         },
 
         processChallenge(state, challenge) {
             if (state == "accepted") {
-                console.log("accepted")
                 const index = this.activeChallenges.indexOf(challenge);
                 if (index > -1) {
                     this.activeChallenges.splice(index, 1);
@@ -121,7 +110,6 @@ export default {
                 signalRService.startGame(challenge)
             }
             else {
-                console.log("declined")
                 const index = this.activeChallenges.indexOf(challenge);
                 if (index > -1) {
                     this.activeChallenges.splice(index, 1);
@@ -131,9 +119,8 @@ export default {
 
         async pushRouter(gameId) {
             this.$store.commit("joinGame", gameId);
-            console.log("startGame")
             this.leaveWaitingroom();
-            await this.$router.push("/game/" + gameId);
+            await this.$router.push("/game/");
         },
 
         leaveWaitingroom() {

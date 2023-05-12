@@ -8,93 +8,44 @@ import signalRService from "../services/SignalRService.js";
   <main>
     <!DOCTYPE html>
     <html>
-      <section>
-        <h1>Willkommen auf unserer Schach-Homepage</h1>
-        <p>
-          Hier finden Sie Informationen über das Schachspiel, die Schachregeln,
-          Schachstrategien, Schachnotation und vieles mehr.
-        </p>
-        <p>
-          Wir bieten auch eine Plattform zum Spielen von Schach online gegen
-          andere Schüler an.
-        </p>
-      </section>
-      <body>
-        <div class="carousel">
-          <img :src="currentImage" alt="" />
-          <button @click="prev">&#8678;</button>
-          <button @click="next">&#8680;</button>
-        </div>
+    <section>
+      <h1>Willkommen auf unserer Schach-Homepage</h1>
+      <p>
+        Hier finden Sie Informationen über das Schachspiel, die Schachregeln,
+        Schachstrategien, Schachnotation und vieles mehr.
+      </p>
+      <p>
+        Wir bieten auch eine Plattform zum Spielen von Schach online gegen
+        andere Schüler an.
+      </p>
+    </section>
 
-        <div class="container">
-          <div class="fb">
-            <div class="card">
-              <div class="card2 hover-div">
-                <img id="springers" src="./1.jpg" alt="Your image" class="blur-image" />
-                <div class="card-text">
-                  <h2>Springer</h2>
-                  <p>
-                    Der Springer, oder Pferd genannt, darf zwei unterschiedliche
-                    Züge machen: Entwe‐ der zieht er ein Feld geradeaus und zwei
-                    Felder nach links oder rechts. Oder er zieht zwei Felder
-                    geradeaus und ein Feld nach links oder rechts.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+    <body>
+      <div class="carousel">
+        <img :src="currentImage" alt="" />
+        <button @click="prev">&#8678;</button>
+        <button @click="next">&#8680;</button>
+      </div>
 
-          <div class="fb">
-            <div class="card">
-              <div class="card2 hover-div">
-                <img src="./chess1.png" alt="Your image" class="blur-image" />
-                <div class="card-text">
-                  <h2>Bauer</h2>
-                  <p>
-                    Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
-                    kann. Ebenso ist der Bauer die einzige Figur, die anders
-                    schlägt als zieht: er schlägt immer diagonal, zieht aber
-                    gerade.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="fb">
-            <div class="card">
-              <div class="card2 hover-div">
-                <img src="./chess2.png" alt="Your image" class="blur-image" />
-                <div class="card-text">
-                  <h2>Dame</h2>
-                  <p>
-                    Die Dame darf auf jedes freie Feld derselben Linie, Reihe
-                    oder Diagonale ziehen, ohne jedoch über andere Figuren zu
-                    springen und vereint somit die Wirkung eines Turms und eines
-                    Läufers in sich. Damit ist die Dame die beweglichste aller
-                    Figuren.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="container">
+      <div class="container">
+        <div class="fb">
           <div class="card">
             <div class="card2 hover-div">
-              <img id="turm" src="./turm.jpg" alt="Your image" class="blur-image" />
+              <img id="springers" src="./1.jpg" alt="Your image" class="blur-image" />
               <div class="card-text">
-                <h2>Bauer</h2>
+                <h2>Springer</h2>
                 <p>
-                  Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
-                  kann. Ebenso ist der Bauer die einzige Figur, die anders
-                  schlägt als zieht: er schlägt immer diagonal, zieht aber
-                  gerade.
+                  Der Springer, oder Pferd genannt, darf zwei unterschiedliche
+                  Züge machen: Entwe- der zieht er ein Feld geradeaus und zwei
+                  Felder nach links oder rechts. Oder er zieht zwei Felder
+                  geradeaus und ein Feld nach links oder rechts.
                 </p>
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="fb">
           <div class="card">
             <div class="card2 hover-div">
               <img src="./chess1.png" alt="Your image" class="blur-image" />
@@ -109,20 +60,71 @@ import signalRService from "../services/SignalRService.js";
               </div>
             </div>
           </div>
+        </div>
 
+        <div class="fb">
           <div class="card">
             <div class="card2 hover-div">
-              <img src="./chess1.png" alt="Your image" class="blur-image" />
+              <img src="./chess2.png" alt="Your image" class="blur-image" />
               <div class="card-text">
-                <h2>Bauer</h2>
+                <h2>Dame</h2>
                 <p>
-                  Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
-                  kann. Ebenso ist der Bauer die einzige Figur, die anders
-                  schlägt als zieht: er schlägt immer diagonal, zieht aber
-                  gerade.
+                  Die Dame darf auf jedes freie Feld derselben Linie, Reihe
+                  oder Diagonale ziehen, ohne jedoch über andere Figuren zu
+                  springen und vereint somit die Wirkung eines Turms und eines
+                  Läufers in sich. Damit ist die Dame die beweglichste aller
+                  Figuren.
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="card">
+          <div class="card2 hover-div">
+            <img id="turm" src="./turm.jpg" alt="Your image" class="blur-image" />
+            <div class="card-text">
+              <h2>Bauer</h2>
+              <p>
+                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                kann. Ebenso ist der Bauer die einzige Figur, die anders
+                schlägt als zieht: er schlägt immer diagonal, zieht aber
+                gerade.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card2 hover-div">
+            <img src="./chess1.png" alt="Your image" class="blur-image" />
+            <div class="card-text">
+              <h2>Bauer</h2>
+              <p>
+                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                kann. Ebenso ist der Bauer die einzige Figur, die anders
+                schlägt als zieht: er schlägt immer diagonal, zieht aber
+                gerade.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card2 hover-div">
+            <img src="./chess1.png" alt="Your image" class="blur-image" />
+            <div class="card-text">
+              <h2>Bauer</h2>
+              <p>
+                Der Bauer ist die einzige Figur, die nicht rückwärts ziehen
+                kann. Ebenso ist der Bauer die einzige Figur, die anders
+                schlägt als zieht: er schlägt immer diagonal, zieht aber
+                gerade.
+              </p>
+            </div>
+          </div>
+        </div>
 
         <div class="book">
           <p>
@@ -137,10 +139,12 @@ import signalRService from "../services/SignalRService.js";
 
           </div>
         </div>
-      </body>
-      <footer>
-        <p>&copy; 2023 Schach Homepage</p>
-      </footer>
+      </div>
+    </body>
+    <footer>
+      <p>&copy; 2023 Schach Homepage</p>
+    </footer>
+
     </html>
   </main>
 </template>
@@ -263,6 +267,7 @@ footer {
 .card2 {
   width: 300px;
 }
+
 .book {
   position: relative;
   border-radius: 10px;
@@ -297,6 +302,7 @@ footer {
 .card:hover .blur-image {
   filter: blur(5px);
 }
+
 .card:hover .card-text {
   display: inline-block;
 }

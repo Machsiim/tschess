@@ -1,6 +1,7 @@
 <script setup>
 import axios from 'axios';
 import signalRService from '../services/SignalRService.js';
+import router from '../router';
 </script>
 
 
@@ -38,11 +39,6 @@ import signalRService from '../services/SignalRService.js';
                 <button v-on:click="loginDevServer()">Login Dev</button>
             </div>
 
-        </div>
-
-
-        <div class="IchWillDasNicht">
-            <button v-on:click="joinQ()">Join Queue</button>
         </div>
         <footer>
             <p>&copy; 2023 Schach Homepage</p>
@@ -82,15 +78,9 @@ export default {
             //try {
             const userdata = (await axios.post('https://localhost:5001/api/users/login', this.loginModel)).data;
             axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
-            console.log("userdata.token = " + userdata.token);
-            this.token = userdata.token;
-            console.log("isLoggedIn=true")
             this.isLoggedIn = true;
-
-            console.log(userdata)
-            console.log(userdata.username + " " + userdata.token)
             this.$store.commit("authenticate", userdata);
-            console.log("this.$store.state.infos.token: " + this.$store.state.infos.token)
+            router.push('/enter');
 
             //
 
@@ -106,27 +96,15 @@ export default {
 
             const userdata = (await axios.post('https://localhost:5001/api/users/login', this.devUser)).data;
             axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
-            console.log("userdata.token = " + userdata.token);
-            this.token = userdata.token;
-            console.log("isLoggedIn=true")
             this.isLoggedIn = true;
-
-            console.log(userdata)
-            console.log(userdata.username + " " + userdata.token)
             this.$store.commit("authenticate", userdata);
-            console.log("this.$store.state.infos.token: " + this.$store.state.infos.token)
+            router.push('/enter');
         },
 
         async fetchDevUser() {
             await fetch('../../ad_secret.json')
                 .then(response => response.json())
                 .then(data => this.devUser = data);
-            console.log("Dev User: " + this.devUser)
-        },
-
-        async joinQ() {
-            console.log(this.token + "token");
-            await signalRService.connectWithToken(this.token);
         },
     },
 };

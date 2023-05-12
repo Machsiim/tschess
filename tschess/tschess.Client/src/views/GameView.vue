@@ -20,6 +20,9 @@ export default {
         signalRService.subscribeEvent("SetGameState", this.setGameState);
         signalRService.getGameState(this.$store.state.infos.currentGameGuid);
     },
+    unmounted() {
+        signalRService.unsubscribeEvent("SetGameState", this.setGameState);
+    },
     methods: {
         setGameState(fen) {
             this.gameState = fen;
