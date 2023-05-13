@@ -18,6 +18,7 @@ export default {
     },
     mounted() {
         signalRService.subscribeEvent("SetGameState", this.setGameState);
+        signalRService.subscribeEvent("GameEnd", this.gameEnd);
         signalRService.getGameState(this.$store.state.infos.currentGameGuid);
     },
     unmounted() {
@@ -28,6 +29,10 @@ export default {
             this.gameState = fen;
             console.log(fen);
         },
+        gameEnd(winner) {
+            // Implement when Game is playable and logic is done
+            console.log("Game ended, winner is " + winner);
+        }
     }
 }
 </script>

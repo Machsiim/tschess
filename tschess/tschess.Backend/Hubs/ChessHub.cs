@@ -20,7 +20,6 @@ namespace Tschess.Backend.Hubs
     {
 
         public static ConcurrentBag<string> ConnectedUsers = new ConcurrentBag<string>();
-        public static ConcurrentBag<string[]> LiveGames = new ConcurrentBag<string[]>();
         public TschessContext _db;
 
 
@@ -98,9 +97,6 @@ namespace Tschess.Backend.Hubs
             _db.Games.Add(game);
             try { _db.SaveChanges(); }
             catch { return; }
-            
-            string[] liveGame = { challenged, challenger, game.GameState};
-            LiveGames.Add(liveGame);
 
             await Clients.Group(users).SendAsync("GameStarted", game.Guid.ToString());
 
@@ -128,6 +124,14 @@ namespace Tschess.Backend.Hubs
             if (game is null) return;
             string users = game.Player1 + game.Player2;
             await Clients.Caller.SendAsync("SetGameState", new string[] { game.GameState, game.Player2 });
+        }
+
+        public async Task EndGame(Guid GameGuid, string winner)
+        {
+            var game = _db.Games.FirstOrDefault(g => g.Guid == GameGuid);
+            if (game is null) return;
+            string users = game.Player1 + game.Player2;
+            await Clients.Group(users).SendAsync("GameEnd", winner);
         }
 
     }
