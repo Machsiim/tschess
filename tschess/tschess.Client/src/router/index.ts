@@ -31,9 +31,9 @@ const router = createRouter({
       component: () => import('../views/ChessBoard.vue')
     },
     {
-      path: '/test',
-      name: 'test',
-      component: () => import('../views/MaximTestView.vue')
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/Login.vue')
     },
     {
       path: '/enter',

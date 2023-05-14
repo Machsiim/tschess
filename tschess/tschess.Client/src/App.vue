@@ -17,7 +17,7 @@ import { RouterLink, RouterView } from 'vue-router'
           <RouterLink to="/" class="nav-link">Chess</RouterLink>
         </li>
         <li>
-          <RouterLink to="/test" class="nav-link">Login</RouterLink>
+          <RouterLink to="/login" class="nav-link">Login</RouterLink>
         </li>
         <li>
           <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
