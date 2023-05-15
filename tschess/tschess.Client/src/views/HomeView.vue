@@ -20,7 +20,7 @@ import signalRService from "../services/SignalRService.js";
       </p>
     </section>
 
-<<<<<<< HEAD
+    <body>
         <div class="container">
           <div class="fb">
             <div class="card">
@@ -43,29 +43,23 @@ import signalRService from "../services/SignalRService.js";
               </div>
             </div>
           </div>
-=======
-    <body>
-      <div class="carousel">
-        <img :src="currentImage" alt="" />
-        <button @click="prev">&#8678;</button>
-        <button @click="next">&#8680;</button>
-      </div>
->>>>>>> 63f4aad500d4455e224fd8cbaf42f4dc1bfd03a6
+
+    
 
       <div class="container">
         <div class="fb">
           <div class="card">
             <div class="card2 hover-div">
-<<<<<<< HEAD
+
               <img
                 id="turm"
                 src="./turm.jpg"
                 alt="Your image"
                 class="blur-image"
               />
-=======
+
               <img id="springers" src="./1.jpg" alt="Your image" class="blur-image" />
->>>>>>> 63f4aad500d4455e224fd8cbaf42f4dc1bfd03a6
+
               <div class="card-text">
                 <h2>Springer</h2>
                 <p>
@@ -174,8 +168,9 @@ import signalRService from "../services/SignalRService.js";
             </div>
           </div>
         </div>
-      </div>
-    </body>
+      </body>
+      
+    
     <footer>
       <p>&copy; 2023 Schach Homepage</p>
     </footer>
@@ -188,34 +183,6 @@ import signalRService from "../services/SignalRService.js";
 
 
 <script>
-export default {
-  data() {
-    return {
-      images: [
-        "https://w.forfun.com/fetch/03/03fcf3213fcf72f9632092804abd88a2.jpeg",
-        "https://image.winudf.com/v2/image/Y29tLkdvbGRNZWRhbC5DaGVzczYwX3NjcmVlbl8wXzM4NWo4YTV4/screen-0.jpg?fakeurl=1&type=.jpg",
-        "https://rare-gallery.com/mocahbig/1344546-Black-amp-WhiteChess-4k-Ultra-HD-Wallpaper.jpg",
-      ],
-      currentIndex: 0,
-      intervalId: null,
-      intervalTime: 4000, // set the time in milliseconds for each slide
-    };
-  },
-  computed: {
-    currentImage() {
-      return this.images[this.currentIndex];
-    },
-  },
-  methods: {
-    prev() {
-      this.currentIndex =
-        (this.currentIndex - 1 + this.images.length) % this.images.length;
-    },
-    next() {
-      this.currentIndex = (this.currentIndex + 1) % this.images.length;
-    },
-  },
-};
 </script>
 
 
