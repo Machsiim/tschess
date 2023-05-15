@@ -8,7 +8,7 @@ export default createStore({
                 token: "",
                 isLoggedIn: false,
                 isInQueue: false,
-                currentGameGuid: "",
+                currentGameGuid: "offline",
             },
         }
     },

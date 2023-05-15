@@ -31,9 +31,9 @@ const router = createRouter({
       component: () => import('../views/ChessBoard.vue')
     },
     {
-      path: '/test',
-      name: 'test',
-      component: () => import('../views/MaximTestView.vue')
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
     },
     {
       path: '/enter',
@@ -41,7 +41,7 @@ const router = createRouter({
       component: () => import('../views/EnterWaitingroomView.vue')
     },
     {
-      path: '/game/:id',
+      path: '/game',
       name: 'game',
       component : () => import('../views/GameView.vue')
     },
