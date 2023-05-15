@@ -30,7 +30,12 @@ import signalRService from "../services/SignalRService.js";
           <div class="fb">
             <div class="card">
               <div class="card2 hover-div">
-                <img id="springers" src="./1.jpg" alt="Your image" class="blur-image" />
+                <img
+                  id="springers"
+                  src="./1.jpg"
+                  alt="Your image"
+                  class="blur-image"
+                />
                 <div class="card-text">
                   <h2>Springer</h2>
                   <p>
@@ -83,7 +88,12 @@ import signalRService from "../services/SignalRService.js";
         <div class="container">
           <div class="card">
             <div class="card2 hover-div">
-              <img id="turm" src="./turm.jpg" alt="Your image" class="blur-image" />
+              <img
+                id="turm"
+                src="./turm.jpg"
+                alt="Your image"
+                class="blur-image"
+              />
               <div class="card-text">
                 <h2>Bauer</h2>
                 <p>
@@ -124,17 +134,18 @@ import signalRService from "../services/SignalRService.js";
               </div>
             </div>
 
-        <div class="book">
-          <p>
-            Der Springer, oder Pferd genannt, darf zwei unterschiedliche Züge
-            machen: Entwe‐ der zieht er ein Feld geradeaus und zwei Felder nach
-            links oder rechts. Oder er zieht zwei Felder geradeaus und ein Feld
-            nach links oder rechts. Der Springer ist die einzige Figur, die über
-            andere Figuren springen kann.
-          </p>
-          <div class="cover">
-            <img src="./1.jpg" alt="" />
-
+            <div class="book">
+              <p>
+                Der Springer, oder Pferd genannt, darf zwei unterschiedliche
+                Züge machen: Entwe‐ der zieht er ein Feld geradeaus und zwei
+                Felder nach links oder rechts. Oder er zieht zwei Felder
+                geradeaus und ein Feld nach links oder rechts. Der Springer ist
+                die einzige Figur, die über andere Figuren springen kann.
+              </p>
+              <div class="cover">
+                <img src="./1.jpg" alt="" />
+              </div>
+            </div>
           </div>
         </div>
       </body>
