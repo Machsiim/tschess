@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
 
-    <body>
+    
       <ul>
         <li>
           <RouterLink to="/" class="nav-link">Home</RouterLink>
@@ -31,8 +31,16 @@ import { RouterLink, RouterView } from 'vue-router'
         </li>
 
       </ul>
-    </body>
+    
   </header>
+   <body>
+    
+   </body>
+   <footer>
+
+
+   </footer>
+
   <RouterView />
 </template>
 
