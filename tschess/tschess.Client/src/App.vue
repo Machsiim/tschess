@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
 
-    <body>
+    
       <ul>
         <li>
           <RouterLink to="/" class="nav-link">Home</RouterLink>
@@ -19,13 +19,21 @@ import { RouterLink, RouterView } from 'vue-router'
         <li>
           <RouterLink to="/login" class="nav-link">Login</RouterLink>
         </li>
-        <li>
+        <li v-if="this.$store.state.infos.isLoggedIn">
           <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
         </li>
         <li><a href="#">About</a></li>
       </ul>
-    </body>
+    
   </header>
+   <body>
+    
+   </body>
+   <footer>
+
+
+   </footer>
+
   <RouterView />
 </template>
 

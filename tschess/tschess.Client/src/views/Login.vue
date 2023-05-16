@@ -12,7 +12,12 @@ import signalRService from '../services/SignalRService.js';
         
 
         <body > 
-            <div class ="center">
+            <div class="center-logout" v-if="this.$store.state.infos.isLoggedIn">
+                <h1> {{ this.$store.state.infos.username }}</h1>
+
+                <button v-on:click="logout()">Logout </button>
+            </div>
+            <div v-else class ="center">
                 <h1> Login </h1>
                  <div class = "amin"> 
                 <div class="txt_field">
@@ -36,10 +41,11 @@ import signalRService from '../services/SignalRService.js';
         
             <div class="formRow">
                 <button v-on:click="loginDevServer()">Login Dev</button>
+              
             </div>
-
+           
        
-
+            
         
        
 
@@ -73,6 +79,15 @@ export default {
         next() {
             this.currentIndex = (this.currentIndex + 1) % this.images.length;
         },
+
+        logout(){
+            
+            delete axios.defaults.headers.common['Authorization'];
+            this.$store.commit('authenticate', null);
+         
+
+
+        },
         async login() {
             //try {
             const userdata = (await axios.post('https://localhost:5001/api/users/login', this.loginModel)).data;
@@ -104,13 +119,15 @@ export default {
             console.log("userdata.token = " + userdata.token);
             this.token = userdata.token;
             console.log("isLoggedIn=true")
-            this.isLoggedIn = true;
+           
 
             console.log(userdata)
             console.log(userdata.username + " " + userdata.token)
             this.$store.commit("authenticate", userdata);
             console.log("this.$store.state.infos.token: " + this.$store.state.infos.token)
         },
+
+      
 
         async fetchDevUser() {
             await fetch('../../ad_secret.json')
@@ -119,16 +136,23 @@ export default {
             console.log("Dev User: " + this.devUser)
         },
 
-        async joinQ() {
-            console.log(this.token + "token");
-            await signalRService.connectWithToken(this.token);
-        },
+      
     },
-};
+    computed: {
+        authenticated() {
+            return this.$store.state.infos.isLoggedIn;
+        },
+        username() {
+            return this.$store.state.infos.name;
+        }
+    },
+ };
+
 </script>
 
 
 <style>
+
 body{
     margin: 0;
     padding: 0;
@@ -146,6 +170,46 @@ body{
     width: 400px;
     background: white;
     border-radius: 10px;
+}
+.center-logout{
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background: white;
+    border-radius: 10px;
+
+}
+
+.center-logout button {  
+    width: 100%;
+    height: 50px;
+    border: 1px solid;
+    background:#585a5c;
+    border-radius: 25px;
+    font-size: 18px;
+    color: #e9f4fb;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    margin: 30px 0;
+}
+.center-logout h1{
+    text-align: center;
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid silver;
+}
+
+.footer {
+    text-align: center;
+    background-color: #464446;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .center h1{
@@ -198,6 +262,13 @@ body{
     top: -5px;
     color: #21292e;
 }
+
+.txt_field input:valid ~ label
+{
+    top: -5px;
+    color: #21292e;
+}
+
 
 
 
