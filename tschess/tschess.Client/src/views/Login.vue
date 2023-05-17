@@ -30,31 +30,18 @@ import signalRService from '../services/SignalRService.js';
                   <span></span>
                   <label for="password">Password</label>
                 </div>
-               
+                 
                 <div class="button-l">
                     <button v-on:click="login()">Login</button>
+                    <p v-if="loginError" class="error-message">Login failed. Invalid credentials.</p>
                 </div>
             </div>
             </div>
          </body>
 
-        
-            <div class="formRow">
-                <button v-on:click="loginDevServer()">Login Dev</button>
-              
-            </div>
-           
-       
-            
-        
-       
-
         </html>
     </main>
 </template>
-
-
-
 
 <script>
 export default {
@@ -64,6 +51,7 @@ export default {
             isLoggedIn: false,
             token: "",
             devUser: {},
+            loginError: false,
         };
     },
     computed: {
@@ -96,39 +84,17 @@ export default {
                 const userdata = (await axios.post('https://localhost:5001/api/users/login', this.loginModel)).data;
                 axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
                 this.$store.commit('authenticate', userdata);
+                this.loginError = false;
             } catch (e) {
                 if (e.response.status == 500) {
-                    alert('Login failed. Invalid credentials.');
+                   
+                    this.loginError = true;
                 }
             }
 
         },
 
-        async loginDevServer() {
-            await this.fetchDevUser();
-
-            const userdata = (await axios.post('https://localhost:5001/api/users/login', this.devUser)).data;
-            axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
-            console.log("userdata.token = " + userdata.token);
-            this.token = userdata.token;
-            console.log("isLoggedIn=true")
-           
-
-            console.log(userdata)
-            console.log(userdata.username + " " + userdata.token)
-            this.$store.commit("authenticate", userdata);
-            console.log("this.$store.state.infos.token: " + this.$store.state.infos.token)
-        },
-
-      
-
-        async fetchDevUser() {
-            await fetch('../../ad_secret.json')
-                .then(response => response.json())
-                .then(data => this.devUser = data);
-            console.log("Dev User: " + this.devUser)
-        },
-
+    
       
     },
     computed: {
@@ -286,5 +252,11 @@ body{
     transition: 0.5s;
 }
 
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+}
 
 </style>
