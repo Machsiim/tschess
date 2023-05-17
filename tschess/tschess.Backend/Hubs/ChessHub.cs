@@ -114,7 +114,7 @@ namespace Tschess.Backend.Hubs
 
             string users = game.Player1 + game.Player2;
             if(Context.User?.Identity?.Name == game.Player1) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2 });
-            else if (Context.User?.Identity?.Name == game.Player2) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2 });
+            else if (Context.User?.Identity?.Name == game.Player2) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player1 });
 
         }
 
