@@ -1,44 +1,40 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
   <header>
+    <ul>
+      <li>
+        <RouterLink to="/" class="nav-link">Home</RouterLink>
+      </li>
+      <li>
+        <RouterLink to="/about" class="nav-link">About</RouterLink>
+      </li>
+      <li>
+        <div v-if="!this.$store.state.infos.isLoggedIn">
+          <RouterLink to="/login" class="nav-link">Login</RouterLink>
+        </div>
+      </li>
+      <li>
+        <div v-if="this.showWaitingRoom()">
+          <RouterLink to="/enter" class="nav-link"
+            >Enter Waitingroom</RouterLink
+          >
+        </div>
+      </li>
 
-    
-    
-      <ul>
-        <li>
-          <RouterLink to="/" class="nav-link">Home</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/about" class="nav-link">About</RouterLink>
-        </li>
-        <li>
-          <div v-if="!this.$store.state.infos.isLoggedIn">
-            <RouterLink to="/login" class="nav-link">Login</RouterLink>
-          </div>
-        </li>
-        <li>
-          <div v-if="this.showWaitingRoom()">
-            <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
-          </div>
-        </li>
-       
-        <li v-if="this.$store.state.infos.isLoggedIn">
-          <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
-        </li>
-        
-      </ul>
-    
+      <li v-if="this.$store.state.infos.isLoggedIn">
+        <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
+      </li>
+
+      <li>
+        <RouterLink to="/game" class="nav-link">Game</RouterLink>
+      </li>
+    </ul>
   </header>
-   <body>
-    
-   </body>
-   <footer>
-
-
-   </footer>
+  <body></body>
+  <footer></footer>
 
   <RouterView />
 </template>
@@ -46,27 +42,25 @@ import { RouterLink, RouterView } from 'vue-router'
 <script lang="ts">
 export default {
   data() {
-    return {
-
-    };
+    return {};
   },
   methods: {
     showWaitingRoom() {
-      if (this.$store.state.infos.isLoggedIn && this.$store.state.infos.currentGameGuid == "offline") {
+      if (
+        this.$store.state.infos.isLoggedIn &&
+        this.$store.state.infos.currentGameGuid == "offline"
+      ) {
         return true;
-      }
-      else {
+      } else {
         return false;
       }
-    }
+    },
   },
-
-}
+};
 </script>
 
-<style >
+<style>
 body {
-
   background-color: rgb(54, 51, 51);
 }
 
