@@ -23,13 +23,14 @@ import { RouterLink, RouterView } from 'vue-router'
             <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
           </div>
         </li>
+       
         <li>
           <div v-if="this.$store.state.infos.currentGameGuid != 'offline'">
             <RouterLink to="/game" class="nav-link">Game</RouterLink>
           </div>
 
         </li>
-
+        
       </ul>
     
   </header>
