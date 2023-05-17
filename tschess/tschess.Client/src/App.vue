@@ -6,6 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
   <header>
 
     
+    
       <ul>
         <li>
           <RouterLink to="/" class="nav-link">Home</RouterLink>
@@ -24,11 +25,8 @@ import { RouterLink, RouterView } from 'vue-router'
           </div>
         </li>
        
-        <li>
-          <div v-if="this.$store.state.infos.currentGameGuid != 'offline'">
-            <RouterLink to="/game" class="nav-link">Game</RouterLink>
-          </div>
-
+        <li v-if="this.$store.state.infos.isLoggedIn">
+          <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
         </li>
         
       </ul>
