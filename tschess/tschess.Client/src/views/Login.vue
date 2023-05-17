@@ -89,25 +89,18 @@ export default {
 
         },
         async login() {
-            //try {
-            const userdata = (await axios.post('https://localhost:5001/api/users/login', this.loginModel)).data;
-            axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
-            console.log("userdata.token = " + userdata.token);
-            this.token = userdata.token;
-            console.log("isLoggedIn=true")
-            this.isLoggedIn = true;
+          
+           
 
-            console.log(userdata)
-            console.log(userdata.username + " " + userdata.token)
-            this.$store.commit("authenticate", userdata);
-            console.log("this.$store.state.infos.token: " + this.$store.state.infos.token)
-
-            //
-
-            //catch (e) {
-            //    console.log("login failed");
-            //    this.isLoggedIn = false;
-            //}
+            try {
+                const userdata = (await axios.post('https://localhost:5001/api/users/login', this.loginModel)).data;
+                axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
+                this.$store.commit('authenticate', userdata);
+            } catch (e) {
+                if (e.response.status == 500) {
+                    alert('Login failed. Invalid credentials.');
+                }
+            }
 
         },
 

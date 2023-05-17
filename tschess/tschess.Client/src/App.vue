@@ -19,10 +19,11 @@ import { RouterLink, RouterView } from 'vue-router'
         <li>
           <RouterLink to="/login" class="nav-link">Login</RouterLink>
         </li>
+       
         <li v-if="this.$store.state.infos.isLoggedIn">
           <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
         </li>
-        <li><a href="#">About</a></li>
+        
       </ul>
     
   </header>
