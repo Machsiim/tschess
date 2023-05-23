@@ -11,7 +11,6 @@ app = Flask(__name__)
 @app.route('/read/<fen>')
 async def ai_move(fen):
     fen = request.view_args['fen']
-    # URL encode the FEN
     decoded_fen = unquote(fen)
     fen = decoded_fen.replace('_', '/')
     fen = fen.replace('=', ' ')
