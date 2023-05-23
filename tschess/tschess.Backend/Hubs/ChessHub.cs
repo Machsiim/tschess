@@ -22,15 +22,8 @@ namespace Tschess.Backend.Hubs
         public static ConcurrentBag<string> ConnectedUsers = new ConcurrentBag<string>();
         public TschessContext _db;
 
-
-
-        /// <summary>
-        /// Sends the current username from the token to the client.
-        /// </summary>
-        /// <returns></returns>
-        /// 
-
-        public ChessHub(TschessContext db) {
+        public ChessHub(TschessContext db)
+        {
             _db = db;
         }
 
@@ -38,27 +31,11 @@ namespace Tschess.Backend.Hubs
         {
             var group = Context.User?.Claims.FirstOrDefault(c => c.Type == "Group")?.Value;
 
-            //await Clients.All.SendAsync("ReceiveMessage",
-            //    $"{Context.User?.Identity?.Name} in Group {group} joined.");
-        }
-        /// <summary>
-        /// Invoked by
-        ///     connection.invoke("SendMessage", message);
-        /// in Javascript SignalR client.h
-        /// </summary>
-        public async Task SendMessage(string message)
-        {
-            // Can be received with
-            //     connection.on("ReceiveMessage", callback);
-            // in Javascript SignalR client.
-            await Clients.All.SendAsync("ReceiveMessage", message);
-
         }
 
         public async Task EnterWaitingroom()
         {
             if (Context.User?.Identity?.Name is null) { return; }
-            //if(ConnectedUsers.Contains(Context.User.Identity.Name)) {  return; }
             ConnectedUsers.Add(Context.User.Identity.Name);
             await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
         }
@@ -72,7 +49,7 @@ namespace Tschess.Backend.Hubs
 
         public async Task ChallengeUser(string challenged)
         {
-            string [] users = { Context.User?.Identity?.Name, challenged };
+            string[] users = { Context.User?.Identity?.Name, challenged };
             string usersString = Context.User?.Identity?.Name + challenged;
             Groups.AddToGroupAsync(Context.ConnectionId, usersString);
             await Clients.All.SendAsync("GetChallenges", users);
@@ -89,10 +66,10 @@ namespace Tschess.Backend.Hubs
         public async Task StartGame(string challenger)
         {
             string challenged = Context.User.Identity.Name;
-            
+
             string users = challenger + challenged;
             Groups.AddToGroupAsync(Context.ConnectionId, users);
-            
+
             Game game = new Game(player1: challenger, player2: challenged);
             _db.Games.Add(game);
             try { _db.SaveChanges(); }
@@ -110,11 +87,11 @@ namespace Tschess.Backend.Hubs
             var game = _db.Games.FirstOrDefault(g => g.Guid == GameGuid);
             if (game is null) return;
             game.GameState = fen;
-            try { _db.SaveChanges(); } catch {  return; }
+            try { _db.SaveChanges(); } catch { return; }
 
             string users = game.Player1 + game.Player2;
-            if(Context.User?.Identity?.Name == game.Player1) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2 });
-            else if (Context.User?.Identity?.Name == game.Player2) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player1 });
+            if (Context.User?.Identity?.Name == game.Player1) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2 });
+            else if (Context.User?.Identity?.Name == game.Player2) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2 });
 
         }
 
@@ -134,5 +111,13 @@ namespace Tschess.Backend.Hubs
             await Clients.Group(users).SendAsync("GameEnd", winner);
         }
 
+        public async Task<string> GetColor(Guid guid, string username)
+        {
+            var game = _db.Games.FirstOrDefault(g => g.Guid == guid);
+            if (game is null) return "No such game";
+            if (game.Player1 == username) return "black";
+            else if (game.Player2 == username) return "white";
+            return "";
+        }
     }
 }
