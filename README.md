@@ -21,11 +21,11 @@ Lege im Verzeichnis *tschess/tschess.Backend* die Datei *appsettings.Development
 ```javascript
 {
   "ConnectionStrings": {
-    "SqlServer": "Server=127.0.0.1,1433;Initial Catalog=ChessDb;User Id=sa;Password=SqlServer2019"
+    "Default": "Server=127.0.0.1,11433;Initial Catalog=ChessDb;User Id=sa;Password=SqlServer2019"
   },
   "Searchuser": "",
   "Searchpass": "",
-  "JwtSecret": "",
+  "JwtSecret": "fk3To4zKSDHsPII1BOmPCQ==",
   "LocalAdmins": "",
   "Logging": {
     "LogLevel": {
@@ -37,6 +37,21 @@ Lege im Verzeichnis *tschess/tschess.Backend* die Datei *appsettings.Development
   "AllowedHosts": "*"
 }
 ```
+### --OPTIONAL--
+
+Lege außerdem im Verzeichnis "\tschess\tschess\tschess.Client" eine Datei namens "ad_secret.json" an.
+Anschließend schreibe deine eigenen Daten in die Json, damit du dich nicht jedes mal im Text Feld beim Login anmelden musst, 
+sondern deine Daten direkt ausgelesen werden.
+Diese Datei ist standartgemäß nicht erforderlich, ist nur fürs Dev-Environment als Zeitsparer gedacht.
+
+```javascript
+{
+    "username": "placeholder",
+    "password": "placeholder"
+}
+```
+
+### -- OPTIONAL ENDE --
 
 ### Controller für die AD Authentifizierung
 

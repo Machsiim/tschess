@@ -10,8 +10,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
+using htldesk.Application.Dto;
+using Tschess.Application.Model;
+using Microsoft.EntityFrameworkCore;
 
-[Route("api/[controller]")]
+[Route("api/users")]
 [ApiController]
 [AllowAnonymous]
 public class UserController : ControllerBase
@@ -21,10 +24,12 @@ public class UserController : ControllerBase
 
     private readonly IConfiguration _config;
     private readonly bool _isDevelopment;
-    public UserController(IHostEnvironment _env, IConfiguration config)
+    private readonly TschessContext _db;
+    public UserController(IHostEnvironment _env, IConfiguration config, TschessContext context)
     {
         _config = config;
         _isDevelopment = _env.IsDevelopment();
+        _db = context;
     }
 
     /// <summary>
@@ -78,6 +83,29 @@ public class UserController : ControllerBase
             Token = tokenHandler.WriteToken(token)
         });
     }
+
+    [HttpPost("registerDev")]
+    public IActionResult RegisterDev(UserDto dto)
+    {
+        _db.Add(
+            new User(
+                name: dto.Username,
+                email: dto.Email,
+                password: dto.Password
+            ));
+        try
+        {
+            _db.SaveChanges();
+        }
+
+        catch(DbUpdateException)
+        {
+            return BadRequest();
+        }
+        
+        return Ok();
+    }
+    
 
     /// <summary>
     /// GET /api/user/me

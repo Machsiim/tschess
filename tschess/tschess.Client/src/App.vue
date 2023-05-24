@@ -4,30 +4,78 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <body>
-  <ul>
-    <li><RouterLink to="/" class="nav-link">Home</RouterLink></li>
-    <li><RouterLink to="/about" class="nav-link">About</RouterLink></li>
-    <li><RouterLink to="/" class="nav-link">Chess</RouterLink></li>
-    <li><RouterLink to="/chat" class="nav-link">Chat (SignalR Demo)</RouterLink></li>
-    <li><a href="#">About</a></li>
-  </ul>
- </body>
+
+    
+    
+      <ul>
+        <li>
+          <RouterLink to="/" class="nav-link">Home</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/about" class="nav-link">About</RouterLink>
+        </li>
+        <li>
+          <div v-if="!this.$store.state.infos.isLoggedIn">
+            <RouterLink to="/login" class="nav-link">Login</RouterLink>
+          </div>
+        </li>
+        <li>
+          <div v-if="this.showWaitingRoom()">
+            <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
+          </div>
+        </li>
+       
+        <li v-if="this.$store.state.infos.isLoggedIn">
+          <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
+        </li>
+        
+      </ul>
+    
   </header>
-  <RouterView/>
+   <body>
+    
+   </body>
+   <footer>
+
+
+   </footer>
+
+  <RouterView />
 </template>
 
+<script lang="ts">
+export default {
+  data() {
+    return {
+
+    };
+  },
+  methods: {
+    showWaitingRoom() {
+      if (this.$store.state.infos.isLoggedIn && this.$store.state.infos.currentGameGuid == "offline") {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  },
+
+}
+</script>
+
 <style >
-body{
+body {
 
   background-color: rgb(54, 51, 51);
 }
+
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: rgb(54, 51, 51);
+  background-color: #222;
 }
 
 li {
@@ -46,9 +94,4 @@ li a {
 li a:hover {
   background-color: #111;
 }
-
-
-  
-
-
 </style>

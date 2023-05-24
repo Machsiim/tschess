@@ -30,6 +30,21 @@ const router = createRouter({
       name: 'chess-board',
       component: () => import('../views/ChessBoard.vue')
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/Login.vue')
+    },
+    {
+      path: '/enter',
+      name: 'enter',
+      component: () => import('../views/EnterWaitingroomView.vue')
+    },
+    {
+      path: '/game',
+      name: 'game',
+      component : () => import('../views/GameView.vue')
+    },
   ]
 })
 

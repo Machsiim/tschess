@@ -11,6 +11,11 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+		<PackageReference Include="Docker.DotNet" Version="3.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+	</ItemGroup>
+	
+	<ItemGroup>
 		<ProjectReference Include="..\tschess.Application\Tschess.Application.csproj" />
 	</ItemGroup>
 
