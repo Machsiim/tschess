@@ -83,6 +83,13 @@ class SignalRService {
     }
     this.connection.invoke("SetGameState", gameGuid, gameState);
   }
+
+  async getColor(gameGuid, username) {
+    if (!this.connected) {
+      throw new Error("Invalid state. Not connected.");
+    }
+    return await this.connection.invoke("GetColor", gameGuid, username);
+  }
 }
 
 // Export a singleton (only 1 instance in the spa to make state management easier)
