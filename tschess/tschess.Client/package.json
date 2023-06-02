@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check build-only",
+    "build-ts": "run-p type-check build-only",
+    "build": "vite build --emptyOutDir",
     "preview": "vite preview",
-    "build-only": "vite build --emptyOutDir",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },

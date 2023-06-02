@@ -18,4 +18,4 @@ EXPOSE 443
 WORKDIR /app
 
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "Tschess.Backend.dll"]
+ENTRYPOINT ["dotnet", "tschess.Backend.dll"]
