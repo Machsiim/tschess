@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { RouterLink, RouterView } from "vue-router";
 </script>
 
@@ -12,19 +12,17 @@ import { RouterLink, RouterView } from "vue-router";
         <RouterLink to="/about" class="nav-link">About</RouterLink>
       </li>
       <li>
-        <div v-if="!this.$store.state.infos.isLoggedIn">
+        <div v-if="!$store.state.infos.isLoggedIn">
           <RouterLink to="/login" class="nav-link">Login</RouterLink>
         </div>
       </li>
       <li>
-        <div v-if="this.showWaitingRoom()">
-          <RouterLink to="/enter" class="nav-link"
-            >Enter Waitingroom</RouterLink
-          >
+        <div v-if="showWaitingRoom()">
+          <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
         </div>
       </li>
 
-      <li v-if="this.$store.state.infos.isLoggedIn">
+      <li v-if="$store.state.infos.isLoggedIn">
         <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
       </li>
 
@@ -33,13 +31,14 @@ import { RouterLink, RouterView } from "vue-router";
       </li>
     </ul>
   </header>
+
   <body></body>
   <footer></footer>
 
   <RouterView />
 </template>
 
-<script lang="ts">
+<script>
 export default {
   data() {
     return {};
