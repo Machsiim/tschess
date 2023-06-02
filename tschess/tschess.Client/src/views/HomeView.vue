@@ -131,10 +131,6 @@ import signalRService from "../services/SignalRService.js";
           </div>
         </div>
       </body>
-
-      <footer>
-        <p>&copy; 2023 Schach Homepage</p>
-      </footer>
     </html>
   </main>
 </template>

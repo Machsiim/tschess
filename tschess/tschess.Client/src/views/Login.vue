@@ -6,7 +6,6 @@ import signalRService from '../services/SignalRService.js';
 
 <template>
     <main>
-        <!DOCTYPE html>
         <html>
 
 
@@ -38,6 +37,8 @@ import signalRService from '../services/SignalRService.js';
                 </div>
             </div>
         </body>
+
+        <footer class="footer"></footer>
 
         </html>
     </main>
@@ -114,10 +115,7 @@ export default {
 body {
     margin: 0;
     padding: 0;
-    font-family: montserrat;
     background: linear-gradient(90deg, #464446, #2a2f2f);
-
-
 }
 
 .center {
@@ -163,13 +161,13 @@ body {
 }
 
 .footer {
-    text-align: center;
-    background-color: #464446;
-    color: white;
-    padding: 10px;
     position: fixed;
+    left: 0;
     bottom: 0;
     width: 100%;
+    background-color: #222;
+    color: white;
+    text-align: center;
 }
 
 .center h1 {

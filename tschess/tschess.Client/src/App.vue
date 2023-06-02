@@ -16,26 +16,23 @@ import { RouterLink, RouterView } from "vue-router";
           <RouterLink to="/login" class="nav-link">Login</RouterLink>
         </div>
       </li>
-      <li>
-        <div v-if="showWaitingRoom()">
-          <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
-        </div>
-      </li>
 
       <li v-if="$store.state.infos.isLoggedIn">
         <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
       </li>
 
-      <li>
+      <li v-if="showGame()">
         <RouterLink to="/game" class="nav-link">Game</RouterLink>
       </li>
     </ul>
   </header>
 
-  <body></body>
-  <footer></footer>
-
   <RouterView />
+
+  <footer class="footer">
+    <p>&copy; InParis </p>
+    <p>2023 Tschess </p>
+  </footer>
 </template>
 
 <script>
@@ -44,16 +41,10 @@ export default {
     return {};
   },
   methods: {
-    showWaitingRoom() {
-      if (
-        this.$store.state.infos.isLoggedIn &&
-        this.$store.state.infos.currentGameGuid == "offline"
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
+    showGame() {
+      if (this.$store.state.infos.currentGameGuid == "offline") return false;
+      else return true;
+    }
   },
 };
 </script>

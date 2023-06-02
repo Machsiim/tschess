@@ -21,7 +21,8 @@ import signalRService from '../services/SignalRService.js';
                 <ul>
                     Connected Users:
                     <div v-for="user in connectedUsers" v-bind:key="user">
-                        <ul>{{ user }} <button v-on:click="challenge(user)">Challenge</button></ul>
+                        <ul v-if="user != this.$store.state.infos.username">{{ user }} <button
+                                v-on:click="challenge(user)">Challenge</button></ul>
                     </div>
                 </ul>
                 <div>
@@ -39,11 +40,6 @@ import signalRService from '../services/SignalRService.js';
             </div>
 
         </section>
-
-
-        <footer>
-            <p>&copy; 2023 Schach Homepage</p>
-        </footer>
 
         </html>
     </main>
@@ -108,6 +104,7 @@ export default {
                     this.activeChallenges.splice(index, 1);
                 }
                 signalRService.startGame(challenge)
+                signalRService.unsubscribeEvent("GameStarted")
             }
             else {
                 const index = this.activeChallenges.indexOf(challenge);
