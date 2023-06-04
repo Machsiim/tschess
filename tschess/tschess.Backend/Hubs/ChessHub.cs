@@ -82,16 +82,16 @@ namespace Tschess.Backend.Hubs
 
         }
 
-        public async Task SetGameState(Guid GameGuid, string fen)
+        public async Task SetGameState(Guid GameGuid, string fen, string move)
         {
             var game = _db.Games.FirstOrDefault(g => g.Guid == GameGuid);
             if (game is null) return;
             game.GameState = fen;
             try { _db.SaveChanges(); } catch { return; }
-
+            
             string users = game.Player1 + game.Player2;
-            if (Context.User?.Identity?.Name == game.Player1) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2 });
-            else if (Context.User?.Identity?.Name == game.Player2) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2 });
+            if (Context.User?.Identity?.Name == game.Player1) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2, move });
+            else if (Context.User?.Identity?.Name == game.Player2) await Clients.Group(users).SendAsync("SetGameState", new string[] { fen, game.Player2, move });
 
         }
 
@@ -103,12 +103,13 @@ namespace Tschess.Backend.Hubs
             await Clients.Caller.SendAsync("SetGameState", new string[] { game.GameState, game.Player2 });
         }
 
-        public async Task EndGame(Guid GameGuid, string winner)
+        public async Task EndGame(Guid GameGuid, string winner, string fen)
         {
             var game = _db.Games.FirstOrDefault(g => g.Guid == GameGuid);
             if (game is null) return;
             string users = game.Player1 + game.Player2;
-            await Clients.Group(users).SendAsync("GameEnd", winner);
+            game.GameState = fen;
+            await Clients.Group(users).SendAsync("GameEnd", winner, game.GameState);
         }
 
         public async Task<string> GetColor(Guid guid, string username)
