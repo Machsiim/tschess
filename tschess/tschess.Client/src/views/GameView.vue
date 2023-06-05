@@ -32,13 +32,8 @@ window.addEventListener("error", errorHandler);
   <div class="game-view">
     <div class="flex-container">
       <div v-if="playerColor" class="chessboard-container">
-        <TheChessboard
-          :board-config="computedBoardConfig"
-          :player-color="playerColor"
-          @board-created="(api) => (boardAPI = api)"
-          @checkmate="gameEnd"
-          @move="handleMove"
-        />
+        <TheChessboard :board-config="computedBoardConfig" :player-color="playerColor"
+          @board-created="(api) => (boardAPI = api)" @checkmate="gameEnd" @move="handleMove" @check="handleCheck" />
       </div>
 
       <div class="resign-container">
@@ -113,6 +108,15 @@ export default {
   },
 
   methods: {
+    handleCheck(color) {
+      signalRService.setGameState(
+        this.$store.state.infos.currentGameGuid,
+        boardAPI.value.getFen(),
+        boardAPI.value.getLastMove().san
+      );
+      currentFen = boardAPI.value.getFen();
+
+    },
     gameEnd(isMated) {
       // Implement when Game is playable and logic is done
       currentFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -151,7 +155,7 @@ export default {
       const confirmed = confirm("Are you sure you want to resign?");
 
       if (confirmed) {
-        const winner = this.playerColor === "white" ? "white" : "black";
+        const winner = this.playerColor;
         this.gameEnd(winner);
       }
     },
@@ -167,7 +171,7 @@ export default {
         } catch (e) {
           console.log(e);
           if (e.message.startsWith("Invalid move")) {
-            boardAPI.value.setPosition(s[0]);
+            //   boardAPI.value.setPosition(s[0]);
           }
           // boardAPI.value.move(this.lastMove);
         }
@@ -219,6 +223,7 @@ export default {
 .popup-close:hover {
   color: #000000;
 }
+
 .game-view {
   height: 100vh;
   display: flex;

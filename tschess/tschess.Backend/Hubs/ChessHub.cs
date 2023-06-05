@@ -109,6 +109,7 @@ namespace Tschess.Backend.Hubs
             if (game is null) return;
             string users = game.Player1 + game.Player2;
             game.GameState = fen;
+            game.Winner = winner;
             await Clients.Group(users).SendAsync("GameEnd", winner, game.GameState);
         }
 
