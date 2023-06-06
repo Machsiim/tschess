@@ -24,6 +24,11 @@ import { RouterLink, RouterView } from "vue-router";
       <li v-if="showGame()">
         <RouterLink to="/game" class="nav-link">Game</RouterLink>
       </li>
+
+      <li v-if="$store.state.infos.isLoggedIn">
+        
+        <RouterLink to="/login" class="nav-link">{{ $store.state.infos.username }}</RouterLink>
+      </li>
     </ul>
   </header>
 
@@ -60,6 +65,8 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: #222;
+  
+  
 }
 
 li {
@@ -78,4 +85,6 @@ li a {
 li a:hover {
   background-color: #111;
 }
+
+
 </style>
