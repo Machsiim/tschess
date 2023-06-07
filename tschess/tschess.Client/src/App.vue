@@ -14,25 +14,20 @@ import vuex from "vuex";
           <li class="nav-item">
             <router-link class="nav-link" to="about">About</router-link>
           </li>
-          <div v-if="showGame()">
-            <li class="nav-item">
-              <router-link class="nav-link" to="game">Spiel</router-link>
-            </li>
-          </div>
-
           <li v-if="isLoggedIn()">
-            <RouterLink to="/enter" class="nav-link"
-              >Enter Waitingroom</RouterLink
-            >
+            <RouterLink to="/enter" class="nav-link">Play</RouterLink>
           </li>
-
-          <li class="nav-item">
+          <li v-if="isLoggedIn()">
+            <RouterLink to="/login" class="nav-link">{{ username() }}</RouterLink>
+          </li>
+          <li v-if="!isLoggedIn()">
             <router-link class="nav-link" to="login">Login</router-link>
           </li>
         </ul>
       </div>
     </nav>
   </header>
+
   <body></body>
 
   <RouterView />
@@ -44,14 +39,13 @@ export default {
     return {};
   },
   methods: {
-    showGame() {
-      if (this.$store.state.infos.currentGameGuid == "offline") return false;
-      else return true;
-    },
     isLoggedIn() {
       if (this.$store.state.infos.isLoggedIn) return true;
       else return false;
     },
+    username() {
+      return this.$store.state.infos.username;
+    }
   },
 };
 </script>

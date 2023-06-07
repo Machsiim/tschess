@@ -8,8 +8,6 @@ import signalRService from '../services/SignalRService.js';
     <main>
         <html>
 
-
-
         <body>
             <div class="center-logout" v-if="$store.state.infos.isLoggedIn">
                 <h1> {{ $store.state.infos.username }}</h1>
@@ -79,10 +77,13 @@ export default {
         },
         async login() {
 
-
+            const host =
+                process.env.NODE_ENV == "production"
+                    ? ""
+                    : "https://localhost:5001";
 
             try {
-                const userdata = (await axios.post('/api/users/login', this.loginModel)).data;
+                const userdata = (await axios.post(host + '/api/users/login', this.loginModel)).data;
                 axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
                 this.$store.commit('authenticate', userdata);
                 this.loginError = false;
@@ -137,6 +138,7 @@ body {
     width: 400px;
     background: white;
     border-radius: 10px;
+    color: #454648;
 
 }
 
