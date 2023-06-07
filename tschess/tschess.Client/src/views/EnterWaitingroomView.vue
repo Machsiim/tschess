@@ -12,7 +12,7 @@ import signalRService from '../services/SignalRService.js';
 
         <section class="test">
             <div class="IchWillDasNicht" v-if="!joinedQueue">
-                <button v-on:click="this.connect();">Join Queue</button>
+                <button v-on:click="connect();">Join Queue</button>
             </div>
 
             <br>
@@ -21,17 +21,18 @@ import signalRService from '../services/SignalRService.js';
                 <ul>
                     Connected Users:
                     <div v-for="user in connectedUsers" v-bind:key="user">
-                        <ul>{{ user }} <button v-on:click="this.challenge(user)">Challenge</button></ul>
+                        <ul v-if="user != this.$store.state.infos.username">{{ user }} <button
+                                v-on:click="challenge(user)">Challenge</button></ul>
                     </div>
                 </ul>
                 <div>
                     Incoming Challenges:
                 </div>
-                <div v-if="this.activeChallenges != undefined">
+                <div v-if="activeChallenges != undefined">
                     <div v-for="challenge in activeChallenges" v-bind:key="challenge">
                         <ul>{{ challenge }}
-                            <button v-on:click="this.processChallenge('accepted', challenge)">Accept</button>
-                            <button v-on:click="this.processChallenge('declined', challenge)">Decline</button>
+                            <button v-on:click="processChallenge('accepted', challenge)">Accept</button>
+                            <button v-on:click="processChallenge('declined', challenge)">Decline</button>
                         </ul>
                     </div>
                 </div>
@@ -39,11 +40,6 @@ import signalRService from '../services/SignalRService.js';
             </div>
 
         </section>
-
-
-        <footer>
-            <p>&copy; 2023 Schach Homepage</p>
-        </footer>
 
         </html>
     </main>
@@ -108,6 +104,7 @@ export default {
                     this.activeChallenges.splice(index, 1);
                 }
                 signalRService.startGame(challenge)
+                signalRService.unsubscribeEvent("GameStarted")
             }
             else {
                 const index = this.activeChallenges.indexOf(challenge);

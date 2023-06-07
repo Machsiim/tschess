@@ -131,10 +131,6 @@ import signalRService from "../services/SignalRService.js";
           </div>
         </div>
       </body>
-
-      <footer>
-        <p>&copy; 2023 Schach Homepage</p>
-      </footer>
     </html>
   </main>
 </template>
@@ -155,6 +151,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  text-align: center;
 }
 
 header {
