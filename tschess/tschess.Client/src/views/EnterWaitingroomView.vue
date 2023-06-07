@@ -104,7 +104,6 @@ export default {
                     this.activeChallenges.splice(index, 1);
                 }
                 signalRService.startGame(challenge)
-                signalRService.unsubscribeEvent("GameStarted")
             }
             else {
                 const index = this.activeChallenges.indexOf(challenge);
@@ -275,4 +274,5 @@ p {
 img {
     height: 300px;
 }
+
 </style>

@@ -10,13 +10,8 @@ import { reactive } from "vue";
 <template>
   <center>
     <div v-if="playerColor === 'white' || playerColor === 'black'">
-      <TheChessboard
-        :board-config="computedBoardConfig"
-        :player-color="playerColor"
-        @board-created="(api) => (boardAPI = api)"
-        @checkmate="gameEnd"
-        @move="handleMove"
-      />
+      <TheChessboard :board-config="computedBoardConfig" :player-color="playerColor"
+        @board-created="(api) => (boardAPI = api)" @checkmate="gameEnd" @move="handleMove" />
     </div>
   </center>
 </template>
@@ -83,3 +78,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.footer {
+  display: none;
+}
+</style>
