@@ -104,6 +104,13 @@ class SignalRService {
     }
     this.connection.invoke("Resign", gameGuid, username);
   }
+
+  async getOpponent(gameGuid, username) {
+    if (!this.connected) {
+      throw new Error("Invalid state. Not connected.");
+    }
+    return await this.connection.invoke("GetOpponent", gameGuid, username);
+  }
 }
 
 // Export a singleton (only 1 instance in the spa to make state management easier)

@@ -115,18 +115,20 @@ namespace Tschess.Backend.Hubs
         public async Task EndGame(Guid GameGuid, string winner, string fen)
         {
             var game = _db.Games.FirstOrDefault(g => g.Guid == GameGuid);
-            if (game is null) return;
+            UsersInGame = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { game.Player1, game.Player2 }));
             string users = game.Player1 + game.Player2;
             game.GameState = fen;
-            game.Winner = winner;
-            await Clients.Group(users).SendAsync("GameEnd", winner, game.GameState);
-            UsersInGame = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { game.Player1, game.Player2}));
+            if(winner == "black") game.Winner = game.Player2;
+            else game.Winner = game.Player1;
+            await Clients.Group(users).SendAsync("GameEnd", game.Winner, game.GameState);
+            
         }
 
         public async Task Resign(Guid GameGuid, string forfeiter)
         {
             var game = _db.Games.FirstOrDefault(g => g.Guid == GameGuid);
             if (game is null) return;
+            if (game.Winner != null) return;
             string users = game.Player1 + game.Player2;
             if (game.Player1 == forfeiter) await Clients.Group(users).SendAsync("Resign", game.Player2, game.GameState);
             if (game.Player2 == forfeiter) await Clients.Group(users).SendAsync("Resign", game.Player1, game.GameState);
@@ -140,6 +142,14 @@ namespace Tschess.Backend.Hubs
             if (game.Player1 == username) return "black";
             else if (game.Player2 == username) return "white";
             return "";
+        }
+
+        public async Task<string> GetOpponent(Guid guid, string username)
+        {
+            var game = _db.Games.FirstOrDefault(g => g.Guid == guid);
+            string users = game.Player1 + game.Player2;
+            if (game.Player1 != username) return game.Player1;
+            else return game.Player2;
         }
     }
 }

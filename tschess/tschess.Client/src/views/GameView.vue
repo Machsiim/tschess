@@ -37,6 +37,17 @@ window.addEventListener("error", errorHandler);
       </div>
 
       <div class="resign-container">
+        <div v-if="this.playerColor == 'white'">
+          <h1>{{ $store.state.infos.username }}</h1>
+          <h1>gegen</h1>
+          <h1>{{ this.opponent }}</h1>
+        </div>
+        <div v-if="this.playerColor == 'black'">
+          <h1>{{ $store.state.infos.username }}</h1>
+          <h1>gegen</h1>
+          <h1>{{ this.opponent }}</h1>
+        </div>
+
         <button class="resign-button" @click="confirmResign">Resign</button>
       </div>
     </div>
@@ -67,6 +78,7 @@ export default {
       showPopup: false,
       showPopupResign: false,
       winner: "",
+      opponent: "",
     };
   },
 
@@ -88,6 +100,10 @@ export default {
     signalRService.subscribeEvent("GameEnd", this.EndGame);
     signalRService.subscribeEvent("Resign", this.EndGameResign);
     signalRService.getGameState(this.$store.state.infos.currentGameGuid);
+    signalRService.getOpponent(this.$store.state.infos.currentGameGuid, this.$store.state.infos.username).then((opponent) => {
+      this.opponent = opponent;
+    });
+
     signalRService
       .getColor(
         this.$store.state.infos.currentGameGuid,
@@ -151,12 +167,14 @@ export default {
       this.winner = winner;
       this.showPopup = true;
       this.$store.commit("joinQueue");
+      this.signalRService.unsubscribeEvent("Resign");
     },
 
     EndGameResign(winner, fen) {
       this.winner = winner;
       this.showPopupResign = true;
       this.$store.commit("joinQueue");
+      this.signalRService.unsubscribeEvent("Resign");
     },
 
     handleMove(move) {
@@ -200,6 +218,9 @@ export default {
       this.showPopup = false;
       this.$store.commit("setGameGuid", "offline");
       this.$router.push("/enter");
+    },
+    setOpponent(opponent) {
+      this.opponent = opponent;
     },
   },
 };
@@ -268,7 +289,8 @@ export default {
 }
 
 .resign-container {
-  margin-top: 20px;
+  margin-top: -100px;
+  color: #dddddd;
 }
 
 .resign-button {
