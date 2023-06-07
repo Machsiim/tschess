@@ -7,53 +7,50 @@ import signalRService from "../services/SignalRService.js";
   <main>
     <!DOCTYPE html>
     <html>
-      <section class="test">
-        <div class="IchWillDasNicht" v-if="!joinedQueue">
-          <button v-on:click="connect()" class="custom-button">
-            Join Queue
-          </button>
+    <section class="test">
+      <div class="IchWillDasNicht" v-if="!joinedQueue">
+        <button v-on:click="connect()" class="custom-button">
+          Join Queue
+        </button>
+      </div>
+
+      <br />
+
+      <div v-if="joinedQueue">
+        <ul>
+          <h2>Connected Users:</h2>
+          <div v-for="user in connectedUsers" v-bind:key="user">
+            <ul v-if="user != $store.state.infos.username">
+              {{
+                user
+              }}
+              <button v-on:click="challenge(user)" class="custom-button">
+                Challenge
+              </button>
+            </ul>
+          </div>
+        </ul>
+        <div>
+          <h2>Incoming Challenges:</h2>
         </div>
-
-        <br />
-
-        <div v-if="joinedQueue">
-          <ul>
-            <h2>Connected Users:</h2>
-            <div v-for="user in connectedUsers" v-bind:key="user">
-              <ul v-if="user != this.$store.state.infos.username">
-                {{
-                  user
-                }}
-                <button v-on:click="challenge(user)" class="custom-button">
-                  Challenge
-                </button>
-              </ul>
-            </div>
-          </ul>
-          <div><h2>Incoming Challenges:</h2></div>
-          <div v-if="activeChallenges != undefined">
-            <div v-for="challenge in activeChallenges" v-bind:key="challenge">
-              <ul>
-                {{
-                  challenge
-                }}
-                <button
-                  v-on:click="processChallenge('accepted', challenge)"
-                  class="custom-button"
-                >
-                  Accept
-                </button>
-                <button
-                  v-on:click="processChallenge('declined', challenge)"
-                  class="custom-button"
-                >
-                  Decline
-                </button>
-              </ul>
-            </div>
+        <div v-if="activeChallenges != undefined">
+          <div v-for="challenge in activeChallenges" v-bind:key="challenge">
+            <ul>
+              {{
+                challenge
+              }}
+              <button v-on:click="processChallenge('accepted', challenge)" class="custom-button">
+                Accept
+              </button>
+              <button v-on:click="processChallenge('declined', challenge)" class="custom-button">
+                Decline
+              </button>
+            </ul>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+
     </html>
   </main>
 </template>
@@ -68,7 +65,7 @@ export default {
     };
   },
 
-  mounted() {},
+  mounted() { },
 
   unmounted() {
     signalRService.leaveWaitingroom();
@@ -135,19 +132,24 @@ export default {
 .custom-button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #8a2be2; /* Purple color */
+  background-color: #8a2be2;
+  /* Purple color */
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.custom-button + .custom-button {
+
+.custom-button+.custom-button {
   margin-left: 10px;
 }
+
 .custom-button:hover {
-  background-color: #6a1c9a; /* Darker shade of purple on hover */
+  background-color: #6a1c9a;
+  /* Darker shade of purple on hover */
 }
+
 header {
   color: white;
 }
@@ -292,13 +294,15 @@ footer {
   -ms-transform: rotatey(-80deg);
   transform: rotatey(-80deg);
 }
+
 .test {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-.test > * {
+
+.test>* {
   flex: 1;
   text-align: center;
 }
@@ -310,5 +314,4 @@ p {
 
 img {
   height: 300px;
-}
-</style>
+}</style>
