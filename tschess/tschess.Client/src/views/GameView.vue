@@ -16,7 +16,7 @@ const errorHandler = (event) => {
       // Access the boardAPI methods or properties
       //console.log(boardAPI.getFen());
       //console.log(boardAPI.getLastMove().san);
-      boardAPI.value.undoLastMove();
+      //boardAPI.value.undoLastMove();
       // Perform other actions with boardAPI if needed
     }
     // You can display an error message to the user or perform any other necessary actions
@@ -172,7 +172,7 @@ export default {
       //fen = s[0];
       if (boardAPI.value)
         try {
-          boardAPI.value.move(s[2]);
+          boardAPI.value.setPosition(s[0]);
         } catch (e) {
           console.log(e);
           if (e.message.startsWith("Invalid move")) {
