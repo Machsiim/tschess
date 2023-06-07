@@ -30,7 +30,7 @@ namespace Tschess.Application.Model
         public string Player1 { get; set; }
         public string Player2 { get; set; }
         
-        public Guid? Winner { get; set; }
+        public string? Winner { get; set; }
 
         public string GameState { get; set; } 
 

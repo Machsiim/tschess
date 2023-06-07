@@ -77,11 +77,18 @@ class SignalRService {
     return await this.connection.invoke("GetGameState", gameGuid);
   }
 
-  async setGameState(gameGuid, gameState) {
+  async setGameState(gameGuid, gameState, move) {
     if (!this.connected) {
       throw new Error("Invalid state. Not connected.");
     }
-    this.connection.invoke("SetGameState", gameGuid, gameState);
+    this.connection.invoke("SetGameState", gameGuid, gameState, move);
+  }
+
+  async EndGame(gameGuid, winner, fen) {
+    if (!this.connected) {
+      throw new Error("Invalid state. Not connected.");
+    }
+    this.connection.invoke("EndGame", gameGuid, winner, fen);
   }
 
   async getColor(gameGuid, username) {
