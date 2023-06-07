@@ -32,8 +32,14 @@ window.addEventListener("error", errorHandler);
   <div class="game-view">
     <div class="flex-container">
       <div v-if="playerColor" class="chessboard-container">
-        <TheChessboard :board-config="computedBoardConfig" :player-color="playerColor"
-          @board-created="(api) => (boardAPI = api)" @checkmate="gameEnd" @move="handleMove" @check="handleCheck" />
+        <TheChessboard
+          :board-config="computedBoardConfig"
+          :player-color="playerColor"
+          @board-created="(api) => (boardAPI = api)"
+          @checkmate="gameEnd"
+          @move="handleMove"
+          @check="handleCheck"
+        />
       </div>
 
       <div class="resign-container">
@@ -115,18 +121,17 @@ export default {
         boardAPI.value.getLastMove().san
       );
       currentFen = boardAPI.value.getFen();
-
     },
     gameEnd(isMated) {
       // Implement when Game is playable and logic is done
       currentFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
       let winner = isMated === "white" ? "black" : "white";
       console.log(boardAPI.value.getFen());
-      console.log(boardAPI.value.getLastMove().san);
+      //console.log(boardAPI.value.getLastMove().san);
       signalRService.setGameState(
         this.$store.state.infos.currentGameGuid,
         boardAPI.value.getFen(),
-        boardAPI.value.getLastMove().san
+        " "
       );
       signalRService.EndGame(
         this.$store.state.infos.currentGameGuid,
@@ -153,7 +158,7 @@ export default {
     },
     confirmResign() {
       const confirmed = confirm("Are you sure you want to resign?");
-
+      console.log("confirmed value:", confirmed);
       if (confirmed) {
         const winner = this.playerColor;
         this.gameEnd(winner);
@@ -181,6 +186,7 @@ export default {
     },
     closePopup() {
       this.showPopup = false;
+      this.$router.push("/enter");
     },
   },
 };
