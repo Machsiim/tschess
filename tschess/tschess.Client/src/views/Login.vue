@@ -82,7 +82,7 @@ export default {
 
 
             try {
-                const userdata = (await axios.post('https://localhost:5001/api/users/login', this.loginModel)).data;
+                const userdata = (await axios.post('/api/users/login', this.loginModel)).data;
                 axios.defaults.headers.common['Authorization'] = `Bearer ${userdata.token}`;
                 this.$store.commit('authenticate', userdata);
                 this.loginError = false;
