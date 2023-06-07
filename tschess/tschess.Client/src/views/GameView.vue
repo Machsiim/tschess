@@ -186,6 +186,7 @@ export default {
     },
     closePopup() {
       this.showPopup = false;
+      this.$store.commit("setGameGuid", "offline");
       this.$router.push("/enter");
     },
   },
@@ -195,6 +196,7 @@ export default {
 <style>
 .footer {
   display: none;
+}
 .popup {
   position: fixed;
   top: 50%;
