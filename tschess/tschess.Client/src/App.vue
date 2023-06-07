@@ -1,69 +1,63 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
+import vuex from "vuex";
 </script>
 
 <template>
   <header>
-      <nav class="navbar ">
-  
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <router-link class="nav-link" to="/">Home</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link class="nav-link" to="about">About</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link class="nav-link" to="game">Spiel</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link class="nav-link" to="login">Login</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link class="nav-link" to="chess">ChessBoard</router-link>
-      </li>
-    </ul>
-  </div>
-</nav>
+    <nav class="navbar">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link class="nav-link" to="/">Home</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="about">About</router-link>
+          </li>
+          <div v-if="showGame()">
+            <li class="nav-item">
+              <router-link class="nav-link" to="game">Spiel</router-link>
+            </li>
+          </div>
 
-    </header>
-  <body>
-    
-   
-  </body>
+          <li v-if="isLoggedIn()">
+            <RouterLink to="/enter" class="nav-link"
+              >Enter Waitingroom</RouterLink
+            >
+          </li>
 
-
-  
+          <li class="nav-item">
+            <router-link class="nav-link" to="login">Login</router-link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <body></body>
 
   <RouterView />
 </template>
 
 <script lang="ts">
-
 export default {
-  
   data() {
     return {};
   },
   methods: {
-    showWaitingRoom() {
-      if (
-        this.$store.state.infos.isLoggedIn &&
-        this.$store.state.infos.currentGameGuid == "offline"
-      ) {
-        return true;
-      } else {
-        return false;
-      }
+    showGame() {
+      if (this.$store.state.infos.currentGameGuid == "offline") return false;
+      else return true;
+    },
+    isLoggedIn() {
+      if (this.$store.state.infos.isLoggedIn) return true;
+      else return false;
     },
   },
 };
 </script>
 
-<style >
-
-  body {
+<style>
+body {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
@@ -107,25 +101,25 @@ export default {
   color: #ffedd3;
   text-transform: uppercase;
   position: relative;
-  transition: .5s ease;
+  transition: 0.5s ease;
   z-index: 1;
 }
 
 .navbar a::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
   height: 2px;
   width: 0;
   background-color: #454545;
-  transition: .5s ease;
+  transition: 0.5s ease;
   z-index: 1;
 }
 
 .navbar a:hover {
   color: #ffffff;
-  transition-delay: .5s;
+  transition-delay: 0.5s;
 }
 
 .navbar a:hover::before {
@@ -133,14 +127,14 @@ export default {
 }
 
 .navbar a::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
   height: 0;
   width: 100%;
   background-color: #474747;
-  transition: .4s ease;
+  transition: 0.4s ease;
   z-index: -1;
 }
 
@@ -149,8 +143,4 @@ export default {
   transition-delay: 0.4s;
   color: aliceblue;
 }
-
-
-
-
 </style>
