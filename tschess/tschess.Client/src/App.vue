@@ -1,90 +1,156 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
   <header>
-    <ul>
-      <li>
-        <RouterLink to="/" class="nav-link">Home</RouterLink>
+      <nav class="navbar ">
+  
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <router-link class="nav-link" to="/">Home</router-link>
       </li>
-      <li>
-        <RouterLink to="/about" class="nav-link">About</RouterLink>
+      <li class="nav-item">
+        <router-link class="nav-link" to="about">About</router-link>
       </li>
-      <li>
-        <div v-if="!$store.state.infos.isLoggedIn">
-          <RouterLink to="/login" class="nav-link">Login</RouterLink>
-        </div>
+      <li class="nav-item">
+        <router-link class="nav-link" to="game">Spiel</router-link>
       </li>
-
-      <li v-if="$store.state.infos.isLoggedIn">
-        <RouterLink to="/enter" class="nav-link">Enter Waitingroom</RouterLink>
+      <li class="nav-item">
+        <router-link class="nav-link" to="login">Login</router-link>
       </li>
-
-      <li v-if="showGame()">
-        <RouterLink to="/game" class="nav-link">Game</RouterLink>
-      </li>
-
-      <li v-if="$store.state.infos.isLoggedIn">
-        
-        <RouterLink to="/login" class="nav-link">{{ $store.state.infos.username }}</RouterLink>
+      <li class="nav-item">
+        <router-link class="nav-link" to="chess">ChessBoard</router-link>
       </li>
     </ul>
-  </header>
+  </div>
+</nav>
+
+    </header>
+  <body>
+    
+   
+  </body>
+
+
+  
 
   <RouterView />
-
-  <footer class="footer">
-    <p>&copy; InParis </p>
-    <p>2023 Tschess </p>
-  </footer>
 </template>
 
-<script>
+<script lang="ts">
+
 export default {
+  
   data() {
     return {};
   },
   methods: {
-    showGame() {
-      if (this.$store.state.infos.currentGameGuid == "offline") return false;
-      else return true;
-    }
+    showWaitingRoom() {
+      if (
+        this.$store.state.infos.isLoggedIn &&
+        this.$store.state.infos.currentGameGuid == "offline"
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
 };
 </script>
 
-<style>
-body {
-  background-color: rgb(54, 51, 51);
-}
+<style >
 
-ul {
-  list-style-type: none;
+  body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  background-color: #222;
-  
-  
+  font-family: "Poppins", sans-serif;
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7)),
+    url("./views/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-li {
-  float: left;
+.navbar {
+  top: 0;
+  width: 100%;
+  height: 60px;
 }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
+.navbar ul {
+  display: flex;
+  list-style: none;
+  width: 100%;
+  justify-content: center;
+}
+
+.navbar ul li {
+  margin: 0 1rem;
+  padding: 1rem;
+}
+
+.navbar ul li a {
   text-decoration: none;
+  text-transform: uppercase;
+  color: #f4f4f4;
+  z-index: 1;
 }
 
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-  background-color: #111;
+.navbar a {
+  font-size: 17px;
+  background: transparent;
+  border: none;
+  padding: 1em 1.5em;
+  color: #ffedd3;
+  text-transform: uppercase;
+  position: relative;
+  transition: .5s ease;
+  z-index: 1;
 }
+
+.navbar a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: #454545;
+  transition: .5s ease;
+  z-index: 1;
+}
+
+.navbar a:hover {
+  color: #ffffff;
+  transition-delay: .5s;
+}
+
+.navbar a:hover::before {
+  width: 100%;
+}
+
+.navbar a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 0;
+  width: 100%;
+  background-color: #474747;
+  transition: .4s ease;
+  z-index: -1;
+}
+
+.navbar a:hover::after {
+  height: 100%;
+  transition-delay: 0.4s;
+  color: aliceblue;
+}
+
+
 
 
 </style>
