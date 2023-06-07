@@ -191,7 +191,10 @@ export default {
   },
 };
 </script>
+
 <style>
+.footer {
+  display: none;
 .popup {
   position: fixed;
   top: 50%;
