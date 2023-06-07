@@ -20,6 +20,7 @@ namespace Tschess.Backend.Hubs
     {
 
         public static ConcurrentBag<string> ConnectedUsers = new ConcurrentBag<string>();
+        public static ConcurrentBag<string> UsersInGame = new ConcurrentBag<string>();
         public TschessContext _db;
 
         public ChessHub(TschessContext db)
@@ -42,9 +43,16 @@ namespace Tschess.Backend.Hubs
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
+            var username = Context.User?.Identity?.Name;
             if (Context.User?.Identity?.Name is null) { return; }
             ConnectedUsers = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { Context.User?.Identity?.Name }));
             await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
+            if(UsersInGame.Contains(Context.User?.Identity?.Name))
+            {
+                var game = _db.Games.FirstOrDefault(g => g.Player1 == username || g.Player2 == username);
+                Resign(game.Guid, username);
+            }
+            
         }
 
         public async Task ChallengeUser(string challenged)
@@ -79,7 +87,8 @@ namespace Tschess.Backend.Hubs
 
             ConnectedUsers = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { challenged, challenger }));
             await Clients.All.SendAsync("SetWaitingroomState", ConnectedUsers);
-
+            UsersInGame.Add(challenged);
+            UsersInGame.Add(challenger);
         }
 
         public async Task SetGameState(Guid GameGuid, string fen, string move)
@@ -111,6 +120,17 @@ namespace Tschess.Backend.Hubs
             game.GameState = fen;
             game.Winner = winner;
             await Clients.Group(users).SendAsync("GameEnd", winner, game.GameState);
+            UsersInGame = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { game.Player1, game.Player2}));
+        }
+
+        public async Task Resign(Guid GameGuid, string forfeiter)
+        {
+            var game = _db.Games.FirstOrDefault(g => g.Guid == GameGuid);
+            if (game is null) return;
+            string users = game.Player1 + game.Player2;
+            if (game.Player1 == forfeiter) await Clients.Group(users).SendAsync("Resign", game.Player2, game.GameState);
+            if (game.Player2 == forfeiter) await Clients.Group(users).SendAsync("Resign", game.Player1, game.GameState);
+            UsersInGame = new ConcurrentBag<string>(ConnectedUsers.Except(new[] { game.Player1, game.Player2 }));
         }
 
         public async Task<string> GetColor(Guid guid, string username)

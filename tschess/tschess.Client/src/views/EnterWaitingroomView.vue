@@ -8,15 +8,16 @@ import signalRService from "../services/SignalRService.js";
     <!DOCTYPE html>
     <html>
     <section class="test">
-      <div class="IchWillDasNicht" v-if="!joinedQueue">
+      <div v-if="!joinedQueue">
         <button v-on:click="connect()" class="custom-button">
-          Join Queue
+          Beitreten
         </button>
       </div>
 
       <br />
 
-      <div v-if="joinedQueue">
+      <div v-if="joinedQueue && !isQueueEmpty">
+
         <ul>
           <h2>Connected Users:</h2>
           <div v-for="user in connectedUsers" v-bind:key="user">
@@ -29,11 +30,14 @@ import signalRService from "../services/SignalRService.js";
               </button>
             </ul>
           </div>
+          <br>
+          <button v-on:click="leaveWaitingroom()" class="custom-button">
+            Verlassen
+          </button>
         </ul>
-        <div>
+
+        <div v-if="joinedQueue && this.activeChallenges.length != 0">
           <h2>Incoming Challenges:</h2>
-        </div>
-        <div v-if="activeChallenges != undefined">
           <div v-for="challenge in activeChallenges" v-bind:key="challenge">
             <ul>
               {{
@@ -49,6 +53,12 @@ import signalRService from "../services/SignalRService.js";
           </div>
         </div>
       </div>
+      <div v-if="joinedQueue && isQueueEmpty">
+        <h2>Waiting for other players...</h2>
+        <button v-on:click="leaveWaitingroom()" class="custom-button">
+          Verlassen
+        </button>
+      </div>
     </section>
 
     </html>
@@ -60,12 +70,16 @@ export default {
   data() {
     return {
       connectedUsers: [],
+      isQueueEmpty: false,
       joinedQueue: false,
       activeChallenges: [],
     };
   },
 
-  mounted() { },
+  mounted() {
+    const store = this.$store;
+    if (store.state.infos.isInQueue) this.connect()
+  },
 
   unmounted() {
     signalRService.leaveWaitingroom();
@@ -74,6 +88,7 @@ export default {
   computed: {},
   methods: {
     async connect() {
+      console.log("connect");
       await signalRService.connectWithToken(this.$store.state.infos.token);
       signalRService.subscribeEvent("SetWaitingroomState", this.addUser);
       signalRService.subscribeEvent("GetChallenges", this.printChallenges);
@@ -87,6 +102,15 @@ export default {
 
     addUser(names) {
       this.connectedUsers = names;
+
+      console.log(this.connectedUsers);
+      if (this.connectedUsers.length == 1) {
+        this.connectedUsers = ["Ziemlich leer hier..."];
+        this.isQueueEmpty = true;
+      }
+      else {
+        this.isQueueEmpty = false;
+      }
     },
 
     challenge(username) {
@@ -95,7 +119,7 @@ export default {
     },
 
     printChallenges(challenges) {
-      if (challenges[1] == this.$store.state.infos.username) {
+      if (challenges[1] == this.$store.state.infos.username && !this.activeChallenges.includes(challenges[0])) {
         this.activeChallenges.push(challenges[0]);
       }
     },
@@ -122,6 +146,8 @@ export default {
     },
 
     leaveWaitingroom() {
+      console.log("leaveWaitingroom");
+      this.joinedQueue = false;
       signalRService.leaveWaitingroom();
     },
   },
@@ -314,4 +340,5 @@ p {
 
 img {
   height: 300px;
-}</style>
+}
+</style>

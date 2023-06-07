@@ -32,14 +32,8 @@ window.addEventListener("error", errorHandler);
   <div class="game-view">
     <div class="flex-container">
       <div v-if="playerColor" class="chessboard-container">
-        <TheChessboard
-          :board-config="computedBoardConfig"
-          :player-color="playerColor"
-          @board-created="(api) => (boardAPI = api)"
-          @checkmate="gameEnd"
-          @move="handleMove"
-          @check="handleCheck"
-        />
+        <TheChessboard :board-config="computedBoardConfig" :player-color="playerColor"
+          @board-created="(api) => (boardAPI = api)" @checkmate="gameEnd" @move="handleMove" @check="handleCheck" />
       </div>
 
       <div class="resign-container">
@@ -50,6 +44,12 @@ window.addEventListener("error", errorHandler);
     <div v-if="showPopup" class="popup">
       <div class="popup-content">
         <div class="popup-title">{{ winner }} wins!</div>
+        <span class="popup-close" @click="closePopup">&#x2715;</span>
+      </div>
+    </div>
+    <div v-if="showPopupResign" class="popup">
+      <div class="popup-content">
+        <div class="popup-title">{{ winner }} wins through resignation!</div>
         <span class="popup-close" @click="closePopup">&#x2715;</span>
       </div>
     </div>
@@ -65,6 +65,7 @@ export default {
       gameState: "",
       playerColor: "",
       showPopup: false,
+      showPopupResign: false,
       winner: "",
     };
   },
@@ -85,6 +86,7 @@ export default {
   mounted() {
     signalRService.subscribeEvent("SetGameState", this.setGameState);
     signalRService.subscribeEvent("GameEnd", this.EndGame);
+    signalRService.subscribeEvent("Resign", this.EndGameResign);
     signalRService.getGameState(this.$store.state.infos.currentGameGuid);
     signalRService
       .getColor(
@@ -111,6 +113,12 @@ export default {
         }
       }
     };
+  },
+
+  unmounted() {
+    signalRService.unsubscribeEvent("SetGameState", this.setGameState);
+    signalRService.unsubscribeEvent("GameEnd", this.EndGame);
+    signalRService.Resign(this.$store.state.infos.currentGameGuid, this.$store.state.infos.username);
   },
 
   methods: {
@@ -142,9 +150,13 @@ export default {
     EndGame(winner, fen) {
       this.winner = winner;
       this.showPopup = true;
-      console.log(this.showPopup);
+      this.$store.commit("joinQueue");
+    },
 
-      //console.log(move.color);
+    EndGameResign(winner, fen) {
+      this.winner = winner;
+      this.showPopupResign = true;
+      this.$store.commit("joinQueue");
     },
 
     handleMove(move) {
@@ -197,6 +209,7 @@ export default {
 .footer {
   display: none;
 }
+
 .popup {
   position: fixed;
   top: 50%;
@@ -222,6 +235,7 @@ export default {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
+  color: rgb(75, 75, 75);
 }
 
 .popup-close {
