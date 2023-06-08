@@ -37,15 +37,10 @@ window.addEventListener("error", errorHandler);
       </div>
 
       <div class="resign-container">
-        <div v-if="this.playerColor == 'white'">
+        <div>
           <h1>{{ $store.state.infos.username }}</h1>
           <h1>gegen</h1>
-          <h1>{{ this.opponent }}</h1>
-        </div>
-        <div v-if="this.playerColor == 'black'">
-          <h1>{{ $store.state.infos.username }}</h1>
-          <h1>gegen</h1>
-          <h1>{{ this.opponent }}</h1>
+          <h1>{{ opponent }}</h1>
         </div>
 
         <button class="resign-button" @click="confirmResign">Resign</button>

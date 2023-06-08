@@ -36,7 +36,7 @@ import signalRService from "../services/SignalRService.js";
           </button>
         </ul>
 
-        <div v-if="joinedQueue && this.activeChallenges.length != 0">
+        <div v-if="joinedQueue && activeChallengesCheck()">
           <h2>Incoming Challenges:</h2>
           <div v-for="challenge in activeChallenges" v-bind:key="challenge">
             <ul>
@@ -53,6 +53,7 @@ import signalRService from "../services/SignalRService.js";
           </div>
         </div>
       </div>
+
       <div v-if="joinedQueue && isQueueEmpty">
         <h2>Waiting for other players...</h2>
         <button v-on:click="leaveWaitingroom()" class="custom-button">
@@ -149,6 +150,12 @@ export default {
       console.log("leaveWaitingroom");
       this.joinedQueue = false;
       signalRService.leaveWaitingroom();
+    },
+    activeChallengesCheck() {
+      if (this.activeChallenges.length > 0) {
+        return true;
+      }
+      else return false;
     },
   },
 };
